@@ -1,0 +1,74 @@
+/*
+ * VNSIR Global Styles
+ * Tailwind CSS — CSS-first configuration via @theme (Tailwind v4)
+ * Design tokens: navy palette, white, charcoal, accent gold
+ */
+
+@import "tailwindcss";
+
+@theme {
+  /* ─── Navy Palette ─────────────────────────────────────────────── */
+  --color-navy-950: #0a0e1a;
+  --color-navy-900: #0f1629;
+  --color-navy-800: #1a2332;
+
+  /* ─── Neutral ───────────────────────────────────────────────────── */
+  --color-white: #ffffff;
+  --color-charcoal: #2d2d2d;
+
+  /* ─── Accent ────────────────────────────────────────────────────── */
+  --color-accent-gold: #c9a84c;
+}
+
+/*
+ * CSS custom properties — available globally for use outside Tailwind utilities
+ * (e.g. in inline styles, third-party components, or legacy CSS).
+ */
+:root {
+  /* Navy */
+  --navy-950: #0a0e1a;
+  --navy-900: #0f1629;
+  --navy-800: #1a2332;
+
+  /* Neutral */
+  --white: #ffffff;
+  --charcoal: #2d2d2d;
+
+  /* Accent */
+  --accent-gold: #c9a84c;
+
+  /* Semantic aliases */
+  --color-background: var(--navy-950);
+  --color-surface: var(--navy-900);
+  --color-surface-raised: var(--navy-800);
+  --color-foreground: var(--white);
+  --color-muted: var(--charcoal);
+  --color-highlight: var(--accent-gold);
+}
+
+/* ─── Base layer resets ─────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--navy-950);
+    color: var(--white);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+/* ─── Utility extensions ────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
