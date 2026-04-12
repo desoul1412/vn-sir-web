@@ -1,6 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "name": "vnsir-com",
+<<<<<<< HEAD
+=======
+  "framework": "nextjs",
+>>>>>>> agent/elena-volkov
   "headers": [
     {
       "source": "/(.*)",
@@ -16,6 +20,7 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+<<<<<<< HEAD
         },
         {
           "key": "Content-Security-Policy",
@@ -41,15 +46,23 @@
     {
       "source": "/((?!assets|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)",
       "destination": "/index.html"
+=======
+        }
+      ]
+>>>>>>> agent/elena-volkov
     }
   ],
   "github": {
     "enabled": true,
     "silent": false,
     "autoJobCancelation": true
+<<<<<<< HEAD
   },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm ci",
   "framework": "vite"
+=======
+  }
+>>>>>>> agent/elena-volkov
 }
