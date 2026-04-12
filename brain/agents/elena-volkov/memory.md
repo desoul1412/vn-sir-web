@@ -1,44 +1,52 @@
 ---
-agent: elena-volkov
-role: Backend Developer
+tags: [agent, memory, backend]
 date: 2026-04-12
-task: "1.1.6 — GitHub Actions CI setup"
+status: active
 ---
 
-# Task 1.1.6 — GitHub Actions CI
+# Elena Volkov — Backend Agent Memory
 
-## What was done
+## Skills
+- React
+- TypeScript
+- Testing
+- DevOps
+- Documentation
+- Git
+- Build Tools
 
-Created `.github/workflows/ci.yml` with four sequential jobs that gate the Vercel deploy:
+## Short-Term Memory
+- The branch is pushed. Here's a summary of everything that was done for **Task 1.1.6**:
 
-1. **Lint** — `npm run lint` (runs `next lint`)
-2. **Type-check** — `npx tsc --noEmit`
-3. **Test** — `npx vitest run`
-4. **Build** — `npm run build` (runs `next build`)
+---
 
-## Files created / modified
+## ✅ Task 1.1.6 — GitHub Actions CI Complete
 
-| File | Action | Reason |
-|------|--------|--------|
-| `.github/workflows/ci.yml` | Created | Main CI pipeline |
-| `package.json` | Updated | Added `vitest`, `@vitejs/plugin-react`, `@testing-library/*`, `jsdom` dev-deps; added `test` and `typecheck` scripts |
-| `vitest.config.ts` | Created | Vitest config with jsdom environment and `@/` alias |
-| `vitest.setup.ts` | Created | Imports `@testing-library/jest-dom` matchers |
-| `src/__tests__/smoke.test.ts` | Created | Minimal smoke test so `vitest run` exits 0 |
-| `vercel.json` | Created | Next.js-correct framework config (corrects rin-tanaka's Vite config) |
+### Files Created
 
-## Gating Vercel on CI
+#### `.github/workflows/ci.yml`
+The main C
 
-The Vercel GitHub integration respects "Required Checks" configured in the GitHub repo's branch protection rules. To complete the gate:
+## Long-Term Knowledge
+- Empty
 
-1. In **GitHub → Settings → Branches → main → Require status checks**:
-   - Add `Lint, Type-check, Test & Build` (the job name in `ci.yml`)
-2. In **Vercel → Project → Git → Pull Request Preview**:
-   - The deployment will still trigger but Vercel itself won't be marked as "required" — the GitHub branch protection prevents the PR from merging until CI is green.
+## Rules
+- Inherits global rules
 
-This follows the standard pattern: CI runs first; Vercel deployment is triggered in parallel but merging is blocked until the `CI` check passes.
+## Completed Tasks
+### 2026-04-12 — **Task 1.1.6**  — Set up GitHub Actions CI: lint (`next lint`), type-check (`tsc --noEmit`), test (`vitest run`), build (`next build`). Gate on all checks green before Vercel deploy.
 
-## Conflict notes
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/rin-tanaka, agent/zara-osei, agent/chris-ng, agent/rin-tanaka, agent/dev-sharma. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+The branch is pushed. Here's a summary of everything that was done for **Task 1.1.6**:
 
-- `vercel.json`: rin-tanaka created this file on their branch. Our version is compatible (same security headers) but corrects `framework: "nextjs"` and removes the Vite-specific `outputDirectory: "dist"` and `rewrites`. This will need to be reconciled at merge time.
-- `package.json`: zara-osei owns the base Next.js project setup. We added dev-only dependencies; no dependency conflicts.
+---
+
+## ✅ Task 1.1.6 — GitHub Actions CI Complete
+
+### Files Created
+
+#### `.github/workflows/ci.yml`
+The main CI pipeline with **four sequential steps**, all running on `ubuntu-latest`:
+
+| Step | Command | Purpo
+
