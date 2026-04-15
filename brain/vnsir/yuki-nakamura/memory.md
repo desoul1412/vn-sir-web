@@ -1,0 +1,44 @@
+---
+tags: [agent, memory, visual]
+date: 2026-04-15
+status: active
+---
+
+# Yuki Nakamura — Visual Agent Memory
+
+## Skills
+- CSS/Tailwind
+- API Development
+- Git
+
+## Short-Term Memory
+- Task 0.8 is complete. Here's a summary of everything added to `src/index.css`:
+
+---
+
+## ✅ Task 0.8 — Design System CSS Custom Properties
+
+### What was added (additive only — no existing tokens modifie
+
+## Long-Term Knowledge
+- Empty
+
+## Rules
+- Inherits global rules
+
+## Completed Tasks
+### 2026-04-15 — **Task 0.8**  — Define design system CSS custom properties in `src/index.css` per Spec §6: `--color-white: #FFFFFF`, `--color-charcoal: #36454F`, `--color-black: #000000`, `--color-navy: #001F3F`. Define font stacks: Serif for headings (e.g., `'Playfair Display'`), Sans-serif for body (e.g., `'Inter'`). Define spacing scale, border radii.
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/zara-osei, agent/fatima-hassan. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+Task 0.8 is complete. Here's a summary of everything added to `src/index.css`:
+
+---
+
+## ✅ Task 0.8 — Design System CSS Custom Properties
+
+### What was added (additive only — no existing tokens modified)
+
+#### 1. Google Fonts import (line 4)
+```css
+@import url('https://fonts.googleapis.com/css2?famil
+
