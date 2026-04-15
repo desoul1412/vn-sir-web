@@ -18,8 +18,19 @@ status: active
 - DevOps
 - Git
 - SQLite
+- Payments
 
 ## Short-Term Memory
+- All done. Here's the complete summary:
+
+---
+
+## ✅ Task 0.10 — Core Dependencies Installed
+
+### What was already in `package.json`
+| Package | Version | Status |
+|---|---|---|
+| `@supabase/supabase-js`
 - Everything is in order. Here's a complete summary of what was done:
 
 ---
@@ -80,6 +91,22 @@ The project already exists as a Vite + React 19 + TypeScrip
 - Inherits global rules
 
 ## Completed Tasks
+### 2026-04-15 — **Task 0.10**  — Install core dependencies: `@supabase/supabase-js`, `react-router-dom` (v7), `@stripe/stripe-js`, `@stripe/react-stripe-js`, `recharts` (interactive charts), `lucide-react` (monochrome icons), `zustand` (state management).
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/fatima-hassan, agent/yuki-nakamura, agent/yuki-nakamura. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+All done. Here's the complete summary:
+
+---
+
+## ✅ Task 0.10 — Core Dependencies Installed
+
+### What was already in `package.json`
+| Package | Version | Status |
+|---|---|---|
+| `@supabase/supabase-js` | ^2.102.1 | ✅ Pre-existing |
+| `react-router-dom` | ^7.14.0 (v7) | ✅ Pre-existing |
+| `zustand` | 
+
 ### 2026-04-15 — **Task 0.6**  — Configure Supabase CLI locally. Initialize `supabase/` directory with `supabase init`. Create migration directory structure: `supabase/migrations/`, `supabase/functions/`.
 Everything is in order. Here's a complete summary of what was done:
 
