@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Custom Fields - Report Publisher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Minimalism styling tweaks */
+        body { background-color: #f1f5f9; color: #334155; }
+        .meta-box { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .meta-box-header { border-bottom: 1px solid #e2e8f0; padding: 12px 16px; background-color: #f8fafc; font-weight: 600; color: #1e293b; }
+        .meta-box-content { padding: 16px; }
+        .input-field { width: 100%; border: 1px solid #cbd5e1; border-radius: 4px; padding: 8px 12px; font-size: 14px; color: #334155; outline: none; transition: border-color 0.2s; background-color: #f8fafc; }
+        .input-field:focus { border-color: #94a3b8; background-color: #ffffff; }
+        .label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+        
+        /* Typography */
+        h1 { font-size: 24px; font-weight: 400; color: #0f172a; margin-bottom: 20px; }
+        
+        /* Custom Checkbox */
+        .wp-checkbox { width: 16px; height: 16px; border: 1px solid #8c8f94; border-radius: 2px; margin-right: 8px; cursor: pointer; }
+        
+        /* Navy Blue CTA */
+        .btn-publish { background-color: #0f172a; color: white; font-weight: 600; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; transition: background-color 0.2s; box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2); }
+        .btn-publish:hover { background-color: #1e293b; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Fake WP Admin Top Bar -->
+    <div class="h-8 bg-gray-800 text-gray-300 flex items-center px-4 text-xs font-medium">
+        <span class="mr-4"><i data-lucide="wordpress" class="w-4 h-4 inline"></i></span>
+        <span>Game Market Insights - Admin</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto p-6 mt-4">
+        
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl text-slate-800 font-semibold tracking-tight">Add New Report</h1>
+        </div>
+
+        <!-- 2-Column Layout -->
+        <div class="flex flex-col lg:flex-row gap-6">
+            
+            <!-- LEFT COLUMN: Main Content & Custom Fields (w-8/12) -->
+            <div class="w-full lg:w-8/12 space-y-6">
+                
+                <!-- Basic Info Meta Box -->
+                <div class="meta-box">
+                    <div class="meta-box-content space-y-5">
+                        
+                        <!-- Report Title -->
+                        <div>
+                            <label class="label">Report Title</label>
+                            <input type="text" class="input-field text-lg font-medium" placeholder="e.g. Global Mobile Gaming Market 2026">
+                        </div>
+
+                        <!-- Price & SKU -->
+                        <div class="flex gap-4">
+                            <div class="w-1/2">
+                                <label class="label">Price Tag (USD)</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">$</span>
+                                    <input type="number" class="input-field pl-8" placeholder="99.00">
+                                </div>
+                            </div>
+                            <div class="w-1/2">
+                                <label class="label">SKU</label>
+                                <input type="text" class="input-field uppercase" placeholder="RPT-2026-GM">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Analysis Meta Box -->
+                <div class="meta-box">
+                    <div class="meta-box-header">Core Content & Analysis</div>
+                    <div class="meta-box-content space-y-5">
+                        
+                        <!-- Executive Summary -->
+                        <div>
+                            <label class="label">Executive Summary</label>
+                            <textarea class="input-field" rows="3" placeholder="Provide a concise summary of the report's main findings..."></textarea>
+                            <p class="text-xs text-slate-400 mt-1">Brief 3-line overview for public display.</p>
+                        </div>
+
+                        <!-- Key Questions -->
+                        <div>
+                            <label class="label">Key Questions Addressed</label>
+                            <textarea class="input-field" rows="4" placeholder="- What is the projected ARPU for Strategy games?&#10;- How are LTV trends shifting in SEA?&#10;- ..."></textarea>
+                            <p class="text-xs text-slate-400 mt-1">Format as a list. These will be highlighted on the landing page.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assets Upload Meta Box -->
+                <div class="meta-box">
+                    <div class="meta-box-header">Report Assets</div>
+                    <div class="meta-box-content space-y-6">
+                        
+                        <!-- Private PDF -->
+                        <div>
+                            <label class="label flex items-center gap-1">
+                                <i data-lucide="lock" class="w-4 h-4 text-slate-600"></i>
+                                Private PDF Upload
+                            </label>
+                            <div class="mt-2 border-2 border-dashed border-slate-300 rounded-md p-6 text-center bg-slate-50 hover:bg-slate-100 transition cursor-pointer">
+                                <i data-lucide="file-text" class="w-8 h-8 text-slate-400 mx-auto mb-2"></i>
+                                <span class="text-sm text-slate-600 font-medium">Click to upload encrypted PDF</span>
+                                <p class="text-xs text-slate-400 mt-1">Requires user purchase/authorization to unlock.</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Slide Images -->
+                        <div>
+                            <label class="label">Demo Slide Images (Public)</label>
+                            <p class="text-xs text-slate-500 mb-3">Upload up to 6 thumbnails for the report gallery.</p>
+                            
+                            <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+                                <!-- 6 Empty Slots -->
+                                <div class="aspect-square border border-dashed border-slate-300 rounded bg-slate-50 flex items-center justify-center cursor-pointer hover:border-slate-400 transition">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                                <div class="aspect-square border border-dashed border-slate-300 rounded bg-slate-50 flex items-center justify-center cursor-pointer hover:border-slate-400 transition">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                                <div class="aspect-square border border-dashed border-slate-300 rounded bg-slate-50 flex items-center justify-center cursor-pointer hover:border-slate-400 transition">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                                <div class="aspect-square border border-dashed border-slate-300 rounded bg-slate-50 flex items-center justify-center cursor-pointer hover:border-slate-400 transition">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                                <div class="aspect-square border border-dashed border-slate-300 rounded bg-slate-50 flex items-center justify-center cursor-pointer hover:border-slate-400 transition">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                                <div class="aspect-square border border-dashed border-slate-300 rounded bg-slate-50 flex items-center justify-center cursor-pointer hover:border-slate-400 transition">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-slate-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Sidebar (w-4/12) -->
+            <div class="w-full lg:w-4/12 space-y-6">
+                
+                <!-- Publish Meta Box -->
+                <div class="meta-box border-t-4 border-t-slate-800">
+                    <div class="meta-box-header flex justify-between items-center">
+                        Publishing Action
+                    </div>
+                    <div class="meta-box-content space-y-4">
+                        <div class="flex items-center justify-between text-sm text-slate-600">
+                            <span class="flex items-center gap-2"><i data-lucide="key" class="w-4 h-4"></i> Status:</span>
+                            <span class="font-medium text-slate-800">Draft</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm text-slate-600">
+                            <span class="flex items-center gap-2"><i data-lucide="eye" class="w-4 h-4"></i> Visibility:</span>
+                            <span class="font-medium text-slate-800">Public</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm text-slate-600">
+                            <span class="flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> Publish on:</span>
+                            <span class="font-medium text-slate-800">Immediately</span>
+                        </div>
+                        
+                        <div class="pt-4 mt-4 border-t border-slate-100 flex justify-end">
+                            <button class="btn-publish flex items-center gap-2">
+                                <i data-lucide="send" class="w-4 h-4"></i> Publish Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Whitelist Categories Meta Box -->
+                <div class="meta-box">
+                    <div class="meta-box-header flex items-center gap-2">
+                        <i data-lucide="folder-check" class="w-4 h-4 text-slate-500"></i> Whitelist Categories
+                    </div>
+                    <div class="meta-box-content">
+                        <div class="space-y-3 bg-slate-50 p-3 border border-slate-200 rounded">
+                            <label class="flex items-center cursor-pointer text-sm font-medium text-slate-700 hover:text-slate-900 transition">
+                                <input type="checkbox" class="wp-checkbox" checked>
+                                Gaming
+                            </label>
+                            <label class="flex items-center cursor-pointer text-sm font-medium text-slate-700 hover:text-slate-900 transition">
+                                <input type="checkbox" class="wp-checkbox">
+                                E-commerce
+                            </label>
+                            <label class="flex items-center cursor-pointer text-sm font-medium text-slate-700 hover:text-slate-900 transition">
+                                <input type="checkbox" class="wp-checkbox">
+                                Entertainment
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

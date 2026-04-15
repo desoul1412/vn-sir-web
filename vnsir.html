@@ -1,0 +1,773 @@
+import React, { useState, useEffect } from 'react';
+import { Search, Globe, User, ArrowRight, BarChart2, Shield, Activity, TrendingUp, Lock, ArrowLeft, Mail, FileText, ChevronDown, ChevronUp, Maximize, X, CheckCircle, CreditCard, ChevronLeft, ChevronRight, Archive, FolderOpen, Receipt, Settings, LogOut } from 'lucide-react';
+
+const App = () => {
+  // --- 1. QUẢN LÝ TRẠNG THÁI (STATE MANAGEMENT) ---
+  const [activeTab, setActiveTab] = useState('All');
+  const [currentPage, setCurrentPage] = useState('Home'); // Home | Advisory | Brief | About | ReportDetail | Portal | Login | Onboarding | Legal
+  const [selectedBrief, setSelectedBrief] = useState(null); 
+  const [selectedReportId, setSelectedReportId] = useState(null);
+
+  // Authentication & Portal State
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activePortalTab, setActivePortalTab] = useState('Archive');
+
+  // Lead Gen, Subscription & Legal State
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [subEmail, setSubEmail] = useState('');
+  const [subEmailError, setSubEmailError] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showCookieConsent, setShowCookieConsent] = useState(true);
+  const [activeLegalSection, setActiveLegalSection] = useState('tos');
+  
+  // Transaction & Report Detail State
+  const [isPurchased, setIsPurchased] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [activeToc, setActiveToc] = useState(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+
+  const tabs = ['All', 'E-Commerce', 'Gaming', 'Entertainment', 'Macro Economy'];
+
+  const ICONS = {
+    Activity: Activity,
+    TrendingUp: TrendingUp,
+    BarChart2: BarChart2,
+    Shield: Shield
+  };
+
+  // --- 2. KHO DỮ LIỆU BÁO CÁO (DATA REPOSITORY) ---
+  const reports = [
+    {
+      id: 1, category: 'Gaming', title: "Vietnam Mobile Gaming 2026: The Next ARPU Frontier", price: '$2,500', summary: 'Phân tích quá trình chuyển đổi sang Mid-core và chiến lược tối ưu hóa LTV của top 5 nhà phát hành.', date: 'Apr 09, 2026', pages: 145, icon: 'Activity',
+      executiveSummary: [
+        "Lưu lượng truy cập tự nhiên giảm 15% do thay đổi thuật toán, buộc các nhà phát hành chuyển sang mạng lưới KOL ngầm.",
+        "Tỷ lệ LTV:CAC của Mid-core RPG đang thu hẹp; cần chuyển 30% ngân sách UA sang micro-influencers.",
+        "Cổng thanh toán trực tiếp giúp tăng ARPU ròng thêm 22% cho top 5 nhà phát hành nội địa."
+      ],
+      strategicQuestions: [
+        "Làm thế nào top nhà phát hành lách thuế 30% của nền tảng qua cổng thanh toán ngầm?",
+        "Sự khác biệt CPA chính xác giữa TikTok Ads và mạng lưới Micro-KOL địa phương?",
+        "Tại sao tỷ lệ giữ chân ngày 30 của Mid-core RPG sụt giảm và cách khắc phục?",
+        "Kênh UA ẩn nào mang lại ROI cao nhất ngoài Facebook/Google?"
+      ],
+      toc: [
+        { id: 1, title: 'Chương 1: Thay đổi vĩ mô trong động lực UA', sub: ['1.1 Thay đổi thuật toán trên Store địa phương', '1.2 Sự lạm phát CPA trên TikTok', '1.3 Chuyển dịch từ Macro sang Micro-KOL'] },
+        { id: 2, title: 'Chương 2: Phân tích LTV & Retention', sub: ['2.1 Điểm chuẩn Retention ngày 30 và 90', '2.2 Mô hình nạp của Whale', '2.3 Mô hình dự đoán Churn'] },
+        { id: 3, title: 'Chương 3: Shadow Payment Gateways', sub: ['3.1 Bypassing the 30% Platform Tax', '3.2 Direct Billing Architecture', '3.3 Legal & Compliance Risk Assessment'] },
+        { id: 4, title: 'Chương 4: Strategic Recommendations for C-Level', sub: ['4.1 Budget Reallocation Matrix', '4.2 M&A Opportunities in Local Studios', '4.3 24-Month Roadmap'] },
+      ],
+      slides: [
+        { id: 1, title: 'So sánh ROI các kênh UA', bg: 'bg-blue-900', label: 'SLIDE 1: UA METRICS' },
+        { id: 2, title: 'Phân tích sụt giảm LTV', bg: 'bg-slate-800', label: 'SLIDE 2: RETENTION' },
+        { id: 3, title: 'Dòng tiền Payment Gateways ngầm', bg: 'bg-blue-950', label: 'SLIDE 3: MONETIZATION' },
+        { id: 4, title: 'Bản đồ Mạng lưới Micro-KOL', bg: 'bg-slate-900', label: 'SLIDE 4: INFLUENCERS' },
+      ]
+    },
+    { 
+      id: 2, category: 'E-Commerce', title: 'Shadow Logistics: The Unseen Last-Mile Network', price: '$1,800', summary: 'Bản đồ các chuỗi cung ứng không chính thức giúp giảm 22% chi phí giao hàng.', date: 'Apr 05, 2026', pages: 112, icon: 'TrendingUp',
+      executiveSummary: [
+        "Mạng lưới vận chuyển 'xe khách' và 'xe tải tư nhân' đang chiếm 40% thị phần giao hàng liên tỉnh.", 
+        "Chi phí giao hàng chặng cuối giảm mạnh nhờ các hub trung chuyển phi tập trung tại vùng ven."
+      ],
+      strategicQuestions: [
+        "Làm thế nào để tích hợp mạng lưới vận chuyển ngầm vào quy trình chính thức?",
+        "Chi phí thực tế của việc tự vận hành so với thuê ngoài qua Shadow Logistics?",
+        "Các hub trung chuyển nào đang thống trị khu vực miền Tây?"
+      ],
+      toc: [
+        { id: 1, title: 'Chương 1: Thực trạng Logistics', sub: ['1.1 Chi phí chặng cuối', '1.2 Hạn chế của các đơn vị lớn'] },
+        { id: 2, title: 'Chương 2: Cấu trúc Mạng lưới Ngầm', sub: ['2.1 Hub phi tập trung', '2.2 Đội ngũ vận chuyển tự do'] }
+      ],
+      slides: [
+        { id: 1, title: 'Bản đồ Hub Trung chuyển', bg: 'bg-blue-900', label: 'SLIDE 1: LOGISTICS' },
+        { id: 2, title: 'So sánh chi phí vận hành', bg: 'bg-slate-800', label: 'SLIDE 2: COST ANALYSIS' }
+      ]
+    },
+    { 
+      id: 3, category: 'Macro Economy', title: 'FDI Inflow: Regulatory Blindspots', price: '$3,000', summary: 'Phân tích chi tiết về các ưu đãi thuế và chi phí tuân thủ không chính thức.', date: 'Mar 28, 2026', pages: 180, icon: 'BarChart2',
+      executiveSummary: [
+        "Các nhà đầu tư FDI đang chuyển hướng từ khu công nghiệp truyền thống sang các đặc khu kinh tế mới.",
+        "Chi phí 'ngoài luồng' trong việc xin cấp phép xây dựng nhà máy tăng 12% theo năm."
+      ],
+      strategicQuestions: [
+        "Khu vực nào tại miền Bắc đang có ưu đãi thuế thực tế cao nhất?",
+        "Quy trình rút gọn hồ sơ pháp lý qua các kênh tư vấn địa phương?",
+        "Dự báo biến động chính sách FDI giai đoạn 2027-2028?"
+      ],
+      toc: [
+        { id: 1, title: 'Chương 1: Bối cảnh FDI 2026', sub: ['1.1 Dòng vốn từ Trung Quốc & Hàn Quốc', '1.2 Sự bão hòa của các KCN cũ'] },
+        { id: 2, title: 'Chương 2: Chi phí Tuân thủ Ngầm', sub: ['2.1 Thủ tục đất đai', '2.2 Giấy phép môi trường'] }
+      ],
+      slides: [
+        { id: 1, title: 'Phân bổ FDI theo tỉnh thành', bg: 'bg-blue-900', label: 'SLIDE 1: MACRO DATA' },
+        { id: 2, title: 'Biểu đồ chi phí tuân thủ', bg: 'bg-slate-800', label: 'SLIDE 2: COMPLIANCE' }
+      ]
+    },
+    { 
+      id: 4, category: 'Entertainment', title: 'Gen-Z Economics: Monetizing Attention', price: '$1,200', summary: 'Phân tích tỷ lệ chuyển đổi từ hệ sinh thái TikTok sang chi tiêu thực tế.', date: 'Mar 15, 2026', pages: 95, icon: 'Shield',
+      executiveSummary: [
+        "Gen-Z Việt Nam dành trung bình 4.5 giờ/ngày cho nội dung ngắn, nhưng tỷ lệ mua hàng trực tiếp chỉ đạt 2%.",
+        "Mô hình 'Entertainment-first, Commerce-later' đang thắng thế trước các mô hình quảng cáo trực diện."
+      ],
+      strategicQuestions: [
+        "Tại sao quảng cáo của bạn không hiệu quả với Gen-Z mặc dù Reach cao?",
+        "Cách xây dựng cộng đồng trả phí trên các nền tảng đóng (Discord/Telegram)?",
+        "Tâm lý học về 'Attention Span' và ứng dụng trong thiết kế game/app?"
+      ],
+      toc: [
+        { id: 1, title: 'Chương 1: Chân dung Gen-Z 2026', sub: ['1.1 Hành vi tiêu dùng số', '1.2 Các nền tảng ưu tiên'] },
+        { id: 2, title: 'Chương 2: Chiến lược Monetization', sub: ['2.1 In-app purchases', '2.2 Brand sponsorship 4.0'] }
+      ],
+      slides: [
+        { id: 1, title: 'Biểu đồ Attention Span', bg: 'bg-blue-900', label: 'SLIDE 1: AUDIENCE' },
+        { id: 2, title: 'Tỷ lệ chuyển đổi theo kênh', bg: 'bg-slate-800', label: 'SLIDE 2: CONVERSION' }
+      ]
+    }
+  ];
+
+  const briefs = [
+    {
+      id: 101, metric: "+24.5%", metricLabel: "YoY CAC Increase (Mid-core RPG)", headline: "The Hidden Cost of User Acquisition in Vietnam's Gaming Market",
+      bullets: ["Lưu lượng tự nhiên từ app store giảm 15% do thay đổi thuật toán.", "TikTok CPA vượt Facebook 12% nhưng Retention cao hơn 8%.", "Mạng lưới Micro-KOL giúp giảm CPI hiệu dụng thêm $1.15."],
+      bluf: "Nhà phát hành phải chuyển 30% ngân sách UA sang Micro-KOL để duy trì LTV:CAC trên 2.5x.",
+      tableData: [{ channel: 'Facebook Ads', cpa: '$4.50', roi: '1.33x' }, { channel: 'Shadow Micro-KOLs', cpa: '$3.35', roi: '2.11x' }],
+      relatedReport: "Vietnam Mobile Gaming 2026"
+    },
+    {
+      id: 102, metric: "$1.2B", metricLabel: "Unrecorded GMV (Q1 2026)", headline: "Social Commerce: The Invisible E-Commerce Giant",
+      bullets: ["Doanh thu Live-streaming qua chuyển khoản cá nhân chiếm 35% tổng GMV.", "Tỷ lệ hoàn hàng ở Tier-3 province tăng 18% khi không dùng COD.", "Zalo-based CRM đang lách hoàn toàn phí nền tảng."],
+      bluf: "Các sàn TMĐT ngoại đang đánh giá sai quy mô thị trường do bỏ qua mạng lưới thương mại phi tập trung Zalo-Facebook trị giá 1.2 tỷ USD.",
+      tableData: [{ channel: 'Shopee/Lazada', fee: '8-12%', control: 'High' }, { channel: 'Zalo Groups (Shadow)', fee: '0%', control: 'None' }],
+      relatedReport: "Shadow Logistics: The Unseen Last-Mile Network"
+    }
+  ];
+
+  const purchasedReports = [
+    { code: 'VN-2026-G01', title: 'Vietnam Mobile Gaming 2026: The Next ARPU Frontier', date: 'Oct 12, 2025' },
+    { code: 'VN-2025-M04', title: 'Macro Economy: FDI Inflow & Regulatory Blindspots', date: 'Aug 05, 2025' }
+  ];
+
+  const customProjects = [
+    { id: 'CP-8842', title: 'Deep-dive into Shadow E-Logistics in Mekong Delta', milestone: 'Data Validation', percentage: 75, lastUpdate: '2 hours ago' },
+    { id: 'CP-8901', title: 'Competitive Intelligence: Top 3 E-Wallets M&A Landscape', milestone: 'Scope Definition', percentage: 15, lastUpdate: '1 day ago' }
+  ];
+
+  // --- 3. XỬ LÝ LOGIC (LOGIC HANDLERS) ---
+  const currentReportDetail = selectedReportId ? reports.find(r => r.id === selectedReportId) : null;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Logic hiển thị Sticky Bar cho Report Detail
+      if (currentPage === 'ReportDetail' && window.scrollY > 400) setShowStickyBar(true);
+      else setShowStickyBar(false);
+
+      // Logic cập nhật Active Section cho trang Legal
+      if (currentPage === 'Legal') {
+        const sections = ['tos', 'privacy', 'ip', 'payment'];
+        for (const section of sections) {
+          const el = document.getElementById(section);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top >= 0 && rect.top <= 300) {
+              setActiveLegalSection(section);
+              break;
+            }
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentPage]);
+
+  const validateCorporateEmail = (val) => {
+    const freemailRegex = /@(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|icloud\.com)$/i;
+    return freemailRegex.test(val) ? 'Freemail providers blocked. Use Corporate Email.' : '';
+  };
+
+  const handleEmailChange = (e) => { setEmail(e.target.value); setEmailError(validateCorporateEmail(e.target.value)); };
+  const handleSubEmailChange = (e) => { setSubEmail(e.target.value); setSubEmailError(validateCorporateEmail(e.target.value)); };
+
+  const handleFormSubmit = (e) => { e.preventDefault(); if (!emailError) alert("Proposal Requested Successfully. Data sent to VNSIR Secure Server."); };
+  const handleSubSubmit = (e) => {
+    e.preventDefault();
+    if (!subEmailError && subEmail) {
+      setIsSubscribed(true); setTimeout(() => { setSubEmail(''); setIsSubscribed(false); }, 3000);
+    }
+  };
+
+  const navigateTo = (page, reportId = null) => {
+    setCurrentPage(page);
+    setSelectedBrief(null);
+    if (reportId) {
+      setSelectedReportId(reportId);
+      setIsPurchased(false);
+      setActiveSlide(0);
+      setActiveToc(null);
+    }
+    window.scrollTo(0, 0);
+  };
+
+  const handlePurchase = () => { 
+    if (isLoggedIn) setShowPaymentModal(true); 
+    else navigateTo('Login');
+  };
+
+  const processPayment = () => {
+    setIsProcessingPayment(true);
+    setTimeout(() => { setIsProcessingPayment(false); setShowPaymentModal(false); setIsPurchased(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }, 2000);
+  };
+
+  const handleAuthAction = (e) => {
+    if (e) e.preventDefault();
+    navigateTo('Onboarding');
+  };
+
+  const handleOnboardingComplete = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(true);
+    navigateTo('Home');
+  };
+
+  const scrollToLegalSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -120; 
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      setActiveLegalSection(id);
+    }
+  };
+
+  const disableRightClick = (e) => e.preventDefault();
+
+  return (
+    <div className="min-h-screen bg-white font-sans text-blue-950 flex flex-col relative pb-20 selection:bg-blue-100">
+      
+      {/* ========================================== */}
+      {/* GLOBAL HEADER */}
+      {/* ========================================== */}
+      {currentPage !== 'Portal' && currentPage !== 'Login' && currentPage !== 'Onboarding' && (
+        <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-blue-50">
+          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigateTo('Home')}>
+              <div className="w-6 h-6 bg-blue-950"></div>
+              <span className="text-2xl font-bold tracking-tighter">VN-SIR<span className="text-blue-600">.</span></span>
+            </div>
+            <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
+              {[
+                { id: 'Home', label: 'Intelligence Hub' },
+                { id: 'Advisory', label: 'Custom Advisory' },
+                { id: 'Brief', label: 'The Analyst Brief' },
+                { id: 'About', label: 'About Us' }
+              ].map((p) => (
+                <button key={p.id} onClick={() => navigateTo(p.id)} className={`py-2 transition-all ${currentPage === p.id || (p.id === 'Home' && currentPage === 'ReportDetail') ? 'text-blue-950 border-b-2 border-blue-950' : 'text-slate-500 hover:text-blue-950'}`}>
+                  {p.label}
+                </button>
+              ))}
+            </nav>
+            <div className="flex items-center gap-6">
+              <div className="text-sm font-medium text-slate-500 cursor-pointer flex gap-1"><Globe className="w-4 h-4"/> EN <span className="text-slate-300">/</span> <span className="text-slate-400">VN</span></div>
+              <button onClick={() => navigateTo(isLoggedIn ? 'Portal' : 'Login')} className="bg-blue-950 text-white px-5 py-2.5 text-sm font-bold flex items-center gap-2 hover:bg-blue-900 transition-colors">
+                <User className="w-4 h-4"/> {isLoggedIn ? 'Client Portal' : 'Login'}
+              </button>
+            </div>
+          </div>
+        </header>
+      )}
+
+      <main className="flex-grow">
+        
+        {/* ========================================== */}
+        {/* VIEW: LOGIN (Open Access Flow) */}
+        {/* ========================================== */}
+        {currentPage === 'Login' && (
+          <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 animate-in fade-in duration-500">
+            <div className="bg-white border border-slate-200 p-10 max-w-md w-full shadow-sm relative">
+              <button onClick={() => navigateTo('Home')} className="absolute top-6 left-6 text-slate-400 hover:text-blue-950 transition-colors"><ArrowLeft className="w-5 h-5"/></button>
+              
+              <div className="text-center mb-10 mt-6">
+                 <div className="w-8 h-8 bg-blue-950 mx-auto mb-4"></div>
+                 <h1 className="text-2xl font-black text-blue-950 uppercase tracking-tight">Access Intelligence</h1>
+                 <p className="text-sm text-slate-500 mt-2 font-medium">Verify your identity to continue.</p>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                 <button onClick={handleAuthAction} className="w-full flex items-center justify-center gap-3 border border-slate-200 p-3 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+                    <svg className="w-5 h-5 text-slate-700" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" /><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" /><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" /><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" /></svg> Continue with Google
+                 </button>
+                 <button onClick={handleAuthAction} className="w-full flex items-center justify-center gap-3 border border-slate-200 p-3 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+                    <svg className="w-5 h-5 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.405-.883-.733-1.48-1.638-1.653-1.935-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> Continue with WhatsApp
+                 </button>
+                 <button onClick={handleAuthAction} className="w-full flex items-center justify-center gap-3 border border-slate-200 p-3 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+                    <svg className="w-5 h-5 text-slate-700" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Continue with LinkedIn
+                 </button>
+              </div>
+              
+              <div className="flex items-center gap-4 mb-8">
+                <div className="h-px bg-slate-200 flex-1"></div><span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Or verify email</span><div className="h-px bg-slate-200 flex-1"></div>
+              </div>
+
+              <form onSubmit={handleAuthAction} className="space-y-4">
+                <input type="email" placeholder="Corporate Email" required className="w-full bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none transition-colors" />
+                <button type="submit" className="w-full bg-blue-950 text-white font-bold py-3 text-sm tracking-wide hover:bg-blue-900 transition-colors">Send Magic Link</button>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: ONBOARDING (Progressive Profiling) */}
+        {/* ========================================== */}
+        {currentPage === 'Onboarding' && (
+          <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 animate-in fade-in duration-500">
+            <div className="bg-white border border-slate-200 p-10 max-w-md w-full shadow-sm">
+              <div className="text-center mb-10"><h1 className="text-2xl font-black text-blue-950 uppercase tracking-tight">Customize Your Feed</h1><p className="text-sm text-slate-500 mt-2 font-medium">Complete profile to calibrate your intelligence hub.</p></div>
+              <form onSubmit={handleOnboardingComplete} className="space-y-6">
+                <div><label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Job Title *</label><input type="text" required placeholder="e.g. Chief Marketing Officer" className="w-full bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none transition-colors" /></div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Industry Focus *</label>
+                  <select required defaultValue="" className="w-full bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none transition-colors appearance-none cursor-pointer">
+                    <option value="" disabled>Select your industry...</option><option value="gaming">Gaming</option><option value="e-commerce">E-Commerce</option><option value="entertainment">Entertainment</option><option value="macro">Macro Economy</option>
+                  </select>
+                </div>
+                <div className="pt-4"><button type="submit" className="w-full bg-blue-600 text-white font-bold py-4 text-sm tracking-wide hover:bg-blue-700 transition-colors flex justify-center items-center gap-2 shadow-md">Complete Onboarding <ArrowRight className="w-4 h-4"/></button></div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: HOME (INTELLIGENCE HUB) */}
+        {/* ========================================== */}
+        {currentPage === 'Home' && (
+          <div className="animate-in fade-in duration-700">
+            <section className="py-24 text-center border-b border-blue-50 px-6">
+              <p className="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase mb-4">The Vietnam Strategic Insight Research</p>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-blue-950 mb-6 leading-tight">Decoding Vietnam's <br className="hidden md:block"/> Shadow Market.</h1>
+              <h2 className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium text-balance">Executive wisdom and surgical insights. <br className="hidden sm:block"/><strong className="text-blue-950 font-bold">No raw data.</strong></h2>
+            </section>
+            <section className="py-16 bg-slate-50/50 px-6">
+              <div className="max-w-7xl mx-auto">
+                <div className="flex justify-center flex-wrap gap-2 mb-12">
+                  {tabs.map(t => <button key={t} onClick={() => setActiveTab(t)} className={`px-5 py-2 text-sm font-medium border transition-all ${activeTab === t ? 'bg-blue-950 text-white' : 'bg-white text-slate-500 hover:border-blue-950 hover:text-blue-950'}`}>{t}</button>)}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {(reports || []).filter(r => activeTab === 'All' || r.category === activeTab).map(r => {
+                    const IconComponent = ICONS[r.icon] || FileText;
+                    return (
+                      <div key={r.id} onClick={() => navigateTo('ReportDetail', r.id)} className="group bg-white border border-slate-200 p-8 hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between min-h-[320px]">
+                        <div>
+                          <div className="flex justify-between mb-6">
+                            <div className="w-12 h-12 bg-slate-50 flex items-center justify-center border"><IconComponent className="w-6 h-6 text-slate-400" /></div>
+                            <div className="text-right"><span className="text-xs font-bold text-blue-600 uppercase tracking-widest block">{r.category}</span><span className="text-xs text-slate-400 font-medium">{r.date}</span></div>
+                          </div>
+                          <h3 className="text-2xl font-bold text-blue-950 mb-4 group-hover:text-blue-600 transition-colors">{r.title}</h3>
+                          <p className="text-slate-600 line-clamp-2 leading-relaxed">{r.summary}</p>
+                        </div>
+                        <div className="mt-8 flex justify-between items-center pt-6 border-t border-slate-100 font-bold text-blue-950"><span>{r.price}</span><div className="flex items-center gap-2 text-sm group-hover:gap-3 transition-all">View Insights <ArrowRight className="w-4 h-4"/></div></div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: CUSTOM ADVISORY */}
+        {/* ========================================== */}
+        {currentPage === 'Advisory' && (
+          <section className="bg-slate-50/30 min-h-screen py-16 px-6 animate-in fade-in duration-700">
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+              <div className="lg:col-span-5 pt-8">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-blue-950 mb-8 leading-tight">Commission a <br/><span className="text-blue-600">Custom Intelligence</span> Report</h1>
+                <p className="text-lg text-slate-600 mb-12 max-w-md">Tailored research executing deep dives into Vietnam's specialized sectors for C-level executives.</p>
+                <div className="space-y-8">
+                  {[{ title: 'Scope Definition', desc: "Aligning on intelligence gaps, target metrics, and strict boundaries." }, { title: 'Data Gathering', desc: "Leveraging on-ground networks, proprietary channels, and shadow market tracking." }, { title: 'Executive Delivery', desc: "Surgical insights synthesized into a high-impact briefing, stripped of raw noise." }].map((step, i) => (
+                    <div key={i} className="flex gap-4">
+                      <div className="text-sm font-bold text-blue-600 mt-1">0{i+1}</div>
+                      <div><h3 className="text-xl font-bold text-blue-950 mb-2">{step.title}</h3><p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="lg:col-span-7 relative">
+                <div className="sticky top-28 bg-white border border-slate-200 p-8 md:p-12 shadow-sm">
+                  <form className="space-y-6" onSubmit={handleFormSubmit}>
+                    <div className="grid grid-cols-2 gap-6">
+                      <input type="text" placeholder="Full Name" required className="bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none transition-all" />
+                      <input type="text" placeholder="Job Title" required className="bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none transition-all" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-6">
+                      <div className="relative">
+                        <input type="email" placeholder="Corporate Email" required value={email} onChange={handleEmailChange} className={`w-full bg-slate-50 border p-3 text-sm focus:outline-none focus:bg-white transition-all ${emailError ? 'border-red-500' : 'border-slate-200 focus:border-blue-600'}`} />
+                        {emailError && <p className="text-[10px] text-red-500 mt-1 font-bold absolute">{emailError}</p>}
+                      </div>
+                      <input type="text" placeholder="Company" required className="bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none transition-all" />
+                    </div>
+                    <select required defaultValue="" className="w-full bg-slate-50 border border-slate-200 p-3 text-sm outline-none focus:border-blue-600 focus:bg-white cursor-pointer"><option value="" disabled>Target Sector</option><option value="gaming">Gaming</option><option value="e-commerce">E-Commerce</option><option value="macro">Macro Economy</option></select>
+                    <textarea placeholder="Key Intelligence Question..." required rows="4" className="w-full bg-slate-50 border border-slate-200 p-3 text-sm focus:border-blue-600 focus:bg-white outline-none resize-none transition-all"></textarea>
+                    <button type="submit" disabled={!!emailError} className="w-full bg-blue-600 text-white font-bold py-4 hover:bg-blue-700 transition-colors disabled:bg-slate-300 shadow-md">Request Confidential Proposal</button>
+                    <div className="flex justify-center items-center gap-2 text-slate-400 text-[10px] font-bold uppercase"><Lock className="w-3 h-3"/> Protected by VNSIR NDA protocols</div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: THE ANALYST BRIEF */}
+        {/* ========================================== */}
+        {currentPage === 'Brief' && (
+          <section className="bg-slate-50/30 py-16 px-6 min-h-screen animate-in fade-in duration-700 relative pb-32">
+            <div className="max-w-4xl mx-auto">
+              {!selectedBrief ? (
+                <>
+                  <div className="mb-12"><p className="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase mb-2">Intelligence Terminal</p><h1 className="text-4xl font-extrabold text-blue-950">The Analyst Brief</h1></div>
+                  <div className="space-y-8">
+                    {(briefs || []).map(b => (
+                      <div key={b.id} className="bg-white border border-slate-200 p-8 hover:border-blue-950 cursor-pointer group transition-all" onClick={() => setSelectedBrief(b)}>
+                        <div className="text-5xl font-black text-blue-950 mb-1 tracking-tighter">{b.metric}</div>
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">{b.metricLabel}</div>
+                        <h2 className="text-2xl font-bold text-blue-950 mb-6 leading-snug">{b.headline}</h2>
+                        <ul className="space-y-3 mb-8">
+                          {(b.bullets || []).map((l, i) => <li key={i} className="text-sm text-slate-600 flex gap-3 leading-relaxed"><span className="w-1.5 h-1.5 bg-blue-600 mt-2 shrink-0"></span>{l}</li>)}
+                        </ul>
+                        <div className="pt-6 border-t border-slate-100 flex justify-between items-center"><span className="text-sm font-bold text-blue-600 flex items-center gap-2 group-hover:gap-3 transition-all">Read Full Brief <ArrowRight className="w-4 h-4"/></span><span className="text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1"><Lock className="w-3 h-3"/> Executive Access</span></div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="bg-white border border-slate-200 p-12 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <button onClick={() => setSelectedBrief(null)} className="text-xs font-bold text-slate-400 uppercase flex items-center gap-2 mb-8 hover:text-blue-950 transition-colors"><ArrowLeft className="w-4 h-4"/> Back to Terminal</button>
+                  <h1 className="text-4xl font-extrabold text-blue-950 mb-8 leading-tight">{selectedBrief?.headline}</h1>
+                  <div className="bg-blue-50 border-l-4 border-blue-600 p-8 mb-10"><p className="text-[10px] font-bold text-blue-600 uppercase mb-3 tracking-widest">BLUF (Bottom-Line Up Front)</p><p className="text-lg font-bold text-blue-950 leading-relaxed">{selectedBrief?.bluf}</p></div>
+                  <div className="overflow-x-auto mb-10">
+                    <table className="w-full text-left text-sm border border-slate-100">
+                      <thead className="bg-slate-50 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                        <tr>{(Object.keys(selectedBrief?.tableData?.[0] || {})).map(k => <th key={k} className="p-4 border-b border-slate-200">{k}</th>)}</tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {(selectedBrief?.tableData || []).map((r, i) => <tr key={i} className="hover:bg-slate-50 transition-colors">{(Object.values(r || {})).map((v, j) => <td key={j} className={`p-4 ${j === 0 ? 'font-bold text-blue-950' : 'text-slate-600'}`}>{v}</td>)}</tr>)}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* STICKY SUBSCRIPTION BAR (Lead Generation Engine for Briefs) */}
+            {!selectedBrief && (
+              <div className="fixed bottom-0 left-0 w-full bg-blue-950 text-white border-t-4 border-blue-600 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] z-[60] animate-in slide-in-from-bottom-full duration-500">
+                <div className="max-w-4xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-blue-800 p-2"><Mail className="w-5 h-5 text-blue-300" /></div>
+                    <p className="text-sm md:text-base font-semibold tracking-tight">Get weekly surgical insights delivered to your inbox.</p>
+                  </div>
+                  <form onSubmit={handleSubSubmit} className="flex w-full md:w-auto relative">
+                    <div className="flex flex-col relative w-full md:w-64">
+                      <input type="email" required placeholder="Corporate Email" value={subEmail} onChange={handleSubEmailChange} className={`bg-blue-900 border ${subEmailError ? 'border-red-400' : 'border-blue-800'} text-white placeholder:text-blue-400 px-4 py-2.5 text-sm focus:outline-none focus:border-blue-400 w-full`} />
+                      {subEmailError && <span className="absolute -top-8 left-0 bg-red-500 text-white text-xs px-2 py-1 font-medium whitespace-nowrap">{subEmailError}</span>}
+                    </div>
+                    <button type="submit" disabled={!!subEmailError} className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 text-sm font-bold transition-colors disabled:bg-blue-800 disabled:text-blue-400 disabled:cursor-not-allowed whitespace-nowrap">
+                      {isSubscribed ? 'Added' : 'Subscribe'}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: ABOUT US (CORPORATE MANIFESTO) */}
+        {/* ========================================== */}
+        {currentPage === 'About' && (
+          <section className="bg-white min-h-screen animate-in fade-in duration-700">
+            <div className="py-24 bg-slate-50/50 text-center border-b border-slate-100"><p className="text-xs font-bold tracking-[0.2em] text-blue-600 uppercase mb-6">Corporate Manifesto</p><h1 className="font-serif text-4xl md:text-6xl font-black uppercase text-blue-950 tracking-tight">VN-SIR: Authority & Stealth</h1></div>
+            <div className="max-w-3xl mx-auto px-6 py-20 space-y-24">
+              <div><h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-4 mb-8">1. Corporate Identity</h2><p className="text-xl text-slate-700 leading-relaxed font-medium">VN-SIR operates as an <strong className="text-blue-950 font-bold">independent legal entity</strong> focused on <strong className="text-blue-950 font-bold">data precision</strong> and strict confidentiality. We assume full <strong className="text-blue-950 font-bold">contractual Legal Liability</strong> for all provided intelligence services.</p></div>
+              <div className="bg-slate-50 -mx-6 px-12 py-16 border-y border-slate-100"><h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-4 mb-8">2. Strategic Stealth Model</h2><p className="text-xl text-slate-700 leading-relaxed font-medium">Our core consists of <strong className="text-blue-950 font-bold">Active Operators</strong> with 21+ years in Vietnam’s digital economy. We leverage <strong className="text-blue-950 font-bold">Strategic Stealth</strong> to decipher <strong className="text-blue-950 font-bold">Shadow Market</strong> dynamics free from personal bias or network interference.</p></div>
+              <div className="flex flex-col sm:flex-row gap-4 pt-12"><button onClick={() => navigateTo('Home')} className="bg-blue-950 text-white px-8 py-4 font-bold text-sm hover:bg-blue-900 transition-colors shadow-md">Explore Intelligence Hub</button><button onClick={() => navigateTo('Advisory')} className="border border-slate-300 text-blue-950 px-8 py-4 font-bold text-sm hover:border-blue-950 transition-all">Request Custom Research</button></div>
+            </div>
+          </section>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: REPORT DETAIL (PRODUCT PAGE) */}
+        {/* ========================================== */}
+        {currentPage === 'ReportDetail' && currentReportDetail && (
+          <div className="bg-white min-h-screen pb-24 animate-in fade-in duration-500">
+            <div className="bg-slate-50/50 border-b border-slate-100"><div className="max-w-7xl mx-auto px-6 py-4"><button onClick={() => navigateTo('Home')} className="flex items-center gap-2 text-xs font-bold tracking-widest text-slate-500 uppercase hover:text-blue-950 transition-colors"><ArrowLeft className="w-4 h-4"/> Back to Intelligence Hub</button></div></div>
+            
+            <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 grid lg:grid-cols-12 gap-16 border-b border-slate-100">
+              <div className="lg:col-span-8">
+                <div className="flex items-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-8"><span className="flex items-center gap-1.5"><FileText className="w-4 h-4 text-blue-600"/> PDF Report</span><span>•</span><span>{currentReportDetail?.pages} Pages</span><span>•</span><span>{currentReportDetail?.date}</span></div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-950 mb-10 leading-tight tracking-tight">{currentReportDetail?.title}</h1>
+                <div className="border-l-4 border-blue-600 pl-8 space-y-6">
+                  {(currentReportDetail?.executiveSummary || []).map((p, i) => <p key={i} className="text-xl text-slate-600 font-medium leading-relaxed">{p}</p>)}
+                </div>
+              </div>
+              <div className="lg:col-span-4 self-center">
+                <div className="bg-slate-50 border border-slate-200 p-10 text-center shadow-sm">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">Enterprise License</p>
+                  <div className="text-6xl font-black text-blue-950 mb-10 tracking-tighter">{currentReportDetail?.price}</div>
+                  {isPurchased ? (
+                    <button className="w-full bg-green-600 text-white py-5 font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 hover:bg-green-700 transition-colors shadow-lg"><CheckCircle className="w-5 h-5"/> Download Purchased Report</button>
+                  ) : (
+                    <button onClick={handlePurchase} className="w-full bg-blue-950 text-white py-5 font-bold uppercase tracking-widest text-sm hover:bg-blue-900 transition-colors shadow-xl">Purchase to Download Full Report</button>
+                  )}
+                  <div className="mt-6 flex items-center justify-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest"><Lock className="w-3.5 h-3.5"/> 256-bit Secure Checkout</div>
+                </div>
+              </div>
+            </section>
+
+            <section className="max-w-7xl mx-auto px-6 py-24 border-b border-slate-100 bg-slate-50/20">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-extrabold text-blue-950 mb-12">Key Strategic Questions Answered</h2>
+                <ul className="space-y-10">
+                  {(currentReportDetail?.strategicQuestions || []).map((q, i) => (
+                    <li key={i} className="flex items-start gap-5 text-xl md:text-2xl font-semibold text-slate-700 leading-snug">
+                      <span className="text-blue-600 mt-1 shrink-0"><CheckCircle className="w-6 h-6" strokeWidth={2.5}/></span>
+                      <span>{q}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+
+            <section className="py-24 px-6 border-b border-slate-100">
+              <div className="max-w-7xl mx-auto">
+                <div className="mb-12"><h2 className="text-3xl font-extrabold text-blue-950 mb-2">Executive Preview</h2><p className="text-slate-500 font-medium">Verified slides extracted from the final intelligence report.</p></div>
+                
+                {currentReportDetail?.slides && currentReportDetail.slides.length > 0 ? (
+                  <div className="relative aspect-video max-w-5xl mx-auto bg-slate-100 border border-slate-200 overflow-hidden group shadow-2xl">
+                    <button onClick={() => setIsFullscreen(true)} className="absolute top-4 right-4 z-30 bg-blue-950/80 text-white p-2 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-950"><Maximize className="w-5 h-5"/></button>
+                    
+                    <button onClick={() => setActiveSlide(s => Math.max(0, s-1))} className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/10 text-white rounded-full backdrop-blur-md hover:bg-white/20 disabled:opacity-0 transition-all" disabled={activeSlide === 0}><ChevronLeft className="w-8 h-8"/></button>
+                    <button onClick={() => setActiveSlide(s => Math.min(currentReportDetail.slides.length-1, s+1))} className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/10 text-white rounded-full backdrop-blur-md hover:bg-white/20 disabled:opacity-0 transition-all" disabled={activeSlide === currentReportDetail.slides.length-1}><ChevronRight className="w-8 h-8"/></button>
+                    
+                    <div onContextMenu={disableRightClick} className={`w-full h-full flex flex-col items-center justify-center ${currentReportDetail.slides[activeSlide]?.bg || 'bg-slate-800'} select-none transition-all duration-500 relative`}>
+                      <span className="text-[10px] font-bold tracking-[0.4em] text-white/50 uppercase mb-6">{currentReportDetail.slides[activeSlide]?.label}</span>
+                      <h3 className="text-4xl lg:text-5xl font-extrabold text-white text-center px-24 leading-tight">{currentReportDetail.slides[activeSlide]?.title}</h3>
+                      <div className="absolute inset-0 pointer-events-none opacity-5 flex items-center justify-center overflow-hidden"><span className="text-8xl font-black text-white -rotate-12 uppercase select-none">VN-SIR CONFIDENTIAL</span></div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="aspect-video max-w-5xl mx-auto bg-slate-100 border border-dashed border-slate-300 flex items-center justify-center text-slate-400">Preview slides coming soon.</div>
+                )}
+                
+                <div className="flex justify-center gap-4 mt-8 max-w-5xl mx-auto">
+                  {(currentReportDetail?.slides || []).map((_, i) => <button key={i} onClick={() => setActiveSlide(i)} className={`h-1.5 transition-all ${activeSlide === i ? 'w-12 bg-blue-600' : 'w-6 bg-slate-200 hover:bg-slate-300'}`}></button>)}
+                </div>
+              </div>
+            </section>
+
+            <section className="py-24 bg-slate-50/30">
+              <div className="max-w-4xl mx-auto px-6">
+                <h2 className="text-3xl font-extrabold text-blue-950 mb-12">Detailed Table of Contents</h2>
+                <div className="space-y-4">
+                  {(currentReportDetail?.toc || []).map((chapter) => (
+                    <div key={chapter.id} className="border border-slate-200 bg-white">
+                      <button onClick={() => setActiveToc(activeToc === chapter.id ? null : chapter.id)} className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                        <span className="font-bold text-lg text-blue-950">{chapter.title}</span>
+                        {activeToc === chapter.id ? <ChevronUp className="w-5 h-5 text-slate-400"/> : <ChevronDown className="w-5 h-5 text-slate-400"/>}
+                      </button>
+                      {activeToc === chapter.id && (
+                        <div className="px-8 pb-8 pt-2 bg-slate-50 border-t border-slate-100 animate-in slide-in-from-top-2 duration-300">
+                          <ul className="space-y-4">
+                            {(chapter.sub || []).map((sub, idx) => (
+                              <li key={idx} className="text-slate-600 font-medium text-sm flex items-center gap-4"><span className="w-1.5 h-1.5 bg-blue-600 rounded-full shrink-0"></span> {sub}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: LEGAL & TRUST CENTER */}
+        {/* ========================================== */}
+        {currentPage === 'Legal' && (
+          <div className="bg-white min-h-screen pt-12 pb-32 animate-in fade-in duration-700">
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+              <div className="lg:col-span-3 hidden lg:block">
+                <div className="sticky top-32 space-y-3">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase mb-8">Trust & Compliance</p>
+                  {[{ id: 'tos', label: 'Terms of Service' }, { id: 'privacy', label: 'Privacy Policy' }, { id: 'ip', label: 'Intellectual Property' }, { id: 'payment', label: 'Payment & Refunds' }].map((item) => (
+                    <button key={item.id} onClick={() => scrollToLegalSection(item.id)} className={`block w-full text-left py-2 text-sm font-bold transition-all border-l-2 pl-4 ${activeLegalSection === item.id ? 'border-blue-950 text-blue-950' : 'border-transparent text-slate-500 hover:text-blue-950 hover:border-slate-300'}`}>
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="lg:col-span-9 max-w-3xl">
+                <div className="mb-16"><p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Last updated: April 10, 2026</p><h1 className="font-serif text-5xl md:text-6xl font-black text-blue-950 leading-tight tracking-tight">Legal & Trust Center</h1></div>
+                <section id="tos" className="mb-20"><h2 className="font-serif text-3xl font-extrabold text-blue-950 mb-8 border-b border-slate-100 pb-4">Terms of Service & Privacy Policy</h2><div className="space-y-10"><div><h3 className="text-sm font-bold text-blue-950 uppercase tracking-widest mb-4">Data Collection & GDPR Compliance</h3><p className="text-lg text-slate-700 leading-relaxed font-medium">VNSIR strictly complies with <strong className="text-blue-950 font-bold">GDPR</strong> and global data protection frameworks. We collect Corporate Data solely for identity verification (<strong className="text-blue-950 font-bold">Whitelist Authentication</strong>) and Personalized Intelligence delivery.</p></div><div><h3 className="text-sm font-bold text-blue-950 uppercase tracking-widest mb-4">Confidentiality Protocol</h3><p className="text-lg text-slate-700 leading-relaxed font-medium">Your engagement with our Custom Advisory is protected by an automatic <strong className="text-blue-950 font-bold">Non-Disclosure Agreement (NDA)</strong>. We maintain a strict <strong className="text-blue-950 font-bold">Strategic Stealth</strong> model and do not monetize your data through third-party sharing.</p></div></div></section>
+                <section id="ip" className="mb-20"><h2 className="font-serif text-3xl font-extrabold text-blue-950 mb-8 border-b border-slate-100 pb-4">Intellectual Property Policy</h2><div className="space-y-10"><div><h3 className="text-sm font-bold text-blue-950 uppercase tracking-widest mb-4">Asset Ownership</h3><p className="text-lg text-slate-700 leading-relaxed font-medium">All Market Intelligence Reports, strategic frameworks, and Data Visualizations remain the exclusive intellectual property of VNSIR. We sell <strong className="text-blue-950 font-bold">Wisdom, not raw data redistribution rights</strong>.</p></div><div><h3 className="text-sm font-bold text-blue-950 uppercase tracking-widest mb-4">Usage Rights & Dynamic Watermarking</h3><p className="text-lg text-slate-700 leading-relaxed font-medium">Purchasing a Tier 1 Report grants a non-transferable, single-entity license. Every downloaded PDF applies <strong className="text-blue-950 font-bold">Dynamic Watermarking</strong> embedded with the purchaser's Corporate Email and IP Address. Unauthorized redistribution, reselling, or public sharing of our Confidential Insights is strictly prohibited and will result in immediate termination of access and legal action.</p></div></div></section>
+                <section id="payment" className="mb-10"><h2 className="font-serif text-3xl font-extrabold text-blue-950 mb-8 border-b border-slate-100 pb-4">Payment Security & Refund Policy</h2><div className="space-y-10"><div><h3 className="text-sm font-bold text-blue-950 uppercase tracking-widest mb-4">Enterprise-Grade Security</h3><p className="text-lg text-slate-700 leading-relaxed font-medium">All transactions are processed via <strong className="text-blue-950 font-bold">PCI-DSS</strong> compliant global gateways. VNSIR employs <strong className="text-blue-950 font-bold">Zero-Knowledge architecture</strong> for financial data; we do not store your raw credit card information.</p></div><div><h3 className="text-sm font-bold text-blue-950 uppercase tracking-widest mb-4">Strict Refund Policy</h3><p className="text-lg text-slate-700 leading-relaxed font-medium">Due to the immediate digital delivery and proprietary nature of our Intelligence Assets, <strong className="text-blue-950 font-bold">all sales of Tier 1 Reports are final</strong>. Refunds are only evaluated in documented cases of technical delivery failure, ensuring fairness while protecting our Intellectual Property.</p></div></div></section>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================== */}
+        {/* VIEW: CLIENT PORTAL */}
+        {/* ========================================== */}
+        {currentPage === 'Portal' && (
+          <div className="min-h-screen bg-slate-50 flex animate-in fade-in duration-500">
+            <aside className="w-64 bg-white border-r border-slate-200 fixed h-full flex flex-col z-20">
+              <div className="p-6 border-b border-slate-100">
+                <div className="flex items-center gap-2 mb-8 cursor-pointer" onClick={() => navigateTo('Home')}><div className="w-6 h-6 bg-blue-950"></div><span className="text-xl font-bold tracking-tighter text-blue-950">VN-SIR<span className="text-blue-600">.</span></span></div>
+                <div className="flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-950 font-bold">EV</div><div><p className="text-sm font-bold text-blue-950">Eric.Vuong</p><p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest">Executive Access</p></div></div>
+              </div>
+              <nav className="flex-1 py-6">
+                <ul className="space-y-1">
+                  <li><button onClick={() => setActivePortalTab('Archive')} className={`w-full flex items-center gap-3 px-6 py-3 text-sm font-semibold transition-colors ${activePortalTab === 'Archive' ? 'text-blue-600 bg-blue-50/50 border-r-2 border-blue-600' : 'text-slate-500 hover:bg-slate-50 hover:text-blue-950'}`}><Archive className="w-4 h-4"/> Intelligence Archive</button></li>
+                  <li><button onClick={() => setActivePortalTab('Projects')} className={`w-full flex items-center gap-3 px-6 py-3 text-sm font-semibold transition-colors ${activePortalTab === 'Projects' ? 'text-blue-600 bg-blue-50/50 border-r-2 border-blue-600' : 'text-slate-500 hover:bg-slate-50 hover:text-blue-950'}`}><FolderOpen className="w-4 h-4"/> Custom Projects</button></li>
+                  <li><button onClick={() => setActivePortalTab('Billing')} className={`w-full flex items-center gap-3 px-6 py-3 text-sm font-semibold transition-colors ${activePortalTab === 'Billing' ? 'text-blue-600 bg-blue-50/50 border-r-2 border-blue-600' : 'text-slate-500 hover:bg-slate-50 hover:text-blue-950'}`}><Receipt className="w-4 h-4"/> Billing History</button></li>
+                  <li><button onClick={() => setActivePortalTab('Account')} className={`w-full flex items-center gap-3 px-6 py-3 text-sm font-semibold transition-colors ${activePortalTab === 'Account' ? 'text-blue-600 bg-blue-50/50 border-r-2 border-blue-600' : 'text-slate-500 hover:bg-slate-50 hover:text-blue-950'}`}><Settings className="w-4 h-4"/> Account Settings</button></li>
+                </ul>
+              </nav>
+              <div className="p-6 border-t border-slate-100">
+                <button onClick={() => { setIsLoggedIn(false); navigateTo('Home'); }} className="w-full flex items-center gap-3 text-sm font-semibold text-slate-500 hover:text-red-500 transition-colors"><LogOut className="w-4 h-4"/> Logout</button>
+              </div>
+            </aside>
+
+            <div className="ml-64 flex-1 p-10 lg:p-16">
+              {activePortalTab === 'Archive' && (
+                <div className="max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-300">
+                  <div className="mb-10"><h1 className="text-3xl font-extrabold text-blue-950 mb-2">Intelligence Archive</h1><p className="text-slate-500 font-medium">Access your purchased Tier-1 macro reports.</p></div>
+                  <div className="bg-white border border-slate-200 shadow-sm overflow-hidden">
+                    <table className="w-full text-left border-collapse">
+                      <thead><tr className="bg-slate-50 border-b border-slate-200"><th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Report ID</th><th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Title</th><th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Status</th><th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest text-right">Action</th></tr></thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {purchasedReports.map((report, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50/50 transition-colors"><td className="px-6 py-5 font-mono text-xs font-semibold text-slate-500">{report.code}</td><td className="px-6 py-5 font-bold text-sm text-blue-950">{report.title}</td><td className="px-6 py-5"><span className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest border border-green-200"><CheckCircle className="w-3 h-3"/> Purchased</span></td><td className="px-6 py-5 text-right"><button className="bg-blue-950 text-white px-5 py-2 text-xs font-bold uppercase tracking-widest hover:bg-blue-900 transition-colors shadow-sm">Download PDF</button></td></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {activePortalTab === 'Projects' && (
+                <div className="max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-300">
+                  <div className="mb-10 flex justify-between items-end">
+                    <div><h1 className="text-3xl font-extrabold text-blue-950 mb-2">Custom Projects</h1><p className="text-slate-500 font-medium">Track milestones for your commissioned Tier-2 research.</p></div>
+                    <button onClick={() => navigateTo('Advisory')} className="bg-blue-600 text-white px-5 py-2.5 text-sm font-bold hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-sm">New Request <ArrowRight className="w-4 h-4"/></button>
+                  </div>
+                  <div className="space-y-6">
+                    {customProjects.map((project, idx) => (
+                      <div key={idx} className="bg-white border border-slate-200 p-8 shadow-sm">
+                        <div className="flex justify-between items-start mb-8">
+                          <div><span className="font-mono text-xs font-bold text-slate-400 mb-2 block">{project.id}</span><h3 className="text-xl font-bold text-blue-950">{project.title}</h3></div>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 border border-slate-100">Last updated: {project.lastUpdate}</span>
+                        </div>
+                        <div className="mb-3 flex justify-between items-end"><span className="text-sm font-bold text-slate-700 uppercase tracking-widest">{project.milestone}</span><span className="text-2xl font-black text-blue-950">{project.percentage}%</span></div>
+                        <div className="w-full h-2 bg-slate-100 overflow-hidden"><div className="h-full bg-blue-600 transition-all duration-1000 ease-out" style={{ width: `${project.percentage}%` }}></div></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {(activePortalTab === 'Billing' || activePortalTab === 'Account') && (
+                <div className="max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-300 flex items-center justify-center h-64 border border-dashed border-slate-300 bg-slate-50/50">
+                  <p className="text-slate-400 font-medium text-sm">Module [{activePortalTab}] is under construction.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+      </main>
+
+      {/* ========================================== */}
+      {/* MODALS & OVERLAYS */}
+      {/* ========================================== */}
+
+      {/* MODAL: FULLSCREEN PREVIEW */}
+      {isFullscreen && currentReportDetail && currentReportDetail.slides && (
+        <div className="fixed inset-0 z-[100] bg-blue-950/98 backdrop-blur-xl flex flex-col animate-in fade-in duration-300">
+          <div className="p-8 flex justify-end"><button onClick={() => setIsFullscreen(false)} className="text-white/60 hover:text-white transition-colors"><X className="w-10 h-10"/></button></div>
+          <div className="flex-grow flex items-center justify-center p-12 relative">
+            <button onClick={() => setActiveSlide(s => Math.max(0, s-1))} className="absolute left-12 p-5 bg-white/5 text-white rounded-full hover:bg-white/10 disabled:opacity-0 transition-all" disabled={activeSlide === 0}><ChevronLeft className="w-12 h-12"/></button>
+            <div onContextMenu={disableRightClick} className={`w-full max-w-7xl aspect-video flex flex-col items-center justify-center ${currentReportDetail.slides[activeSlide]?.bg || 'bg-slate-800'} shadow-2xl ring-1 ring-white/10 select-none`}>
+              <h3 className="text-5xl lg:text-7xl font-black text-white px-32 text-center uppercase tracking-tighter leading-tight">{currentReportDetail.slides[activeSlide]?.title}</h3>
+              <div className="absolute inset-0 pointer-events-none opacity-5 flex items-center justify-center overflow-hidden"><span className="text-[12rem] font-black text-white -rotate-12 uppercase select-none">VN-SIR</span></div>
+            </div>
+            <button onClick={() => setActiveSlide(s => Math.min(currentReportDetail.slides.length-1, s+1))} className="absolute right-12 p-5 bg-white/5 text-white rounded-full hover:bg-white/10 disabled:opacity-0 transition-all" disabled={activeSlide === currentReportDetail.slides.length-1}><ChevronRight className="w-12 h-12"/></button>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: PAYMENT */}
+      {showPaymentModal && currentReportDetail && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-6">
+          <div className="bg-white max-w-md w-full p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-300">
+            <div className="flex justify-between items-start mb-10 border-b border-slate-100 pb-6"><div className="space-y-1"><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Transaction Portal</p><h3 className="text-xl font-black text-blue-950 uppercase tracking-tight">Checkout</h3></div><button onClick={() => setShowPaymentModal(false)} className="text-slate-400 hover:text-blue-950"><X className="w-6 h-6"/></button></div>
+            <div className="bg-slate-50 p-8 border border-slate-200 mb-10 flex justify-between items-end"><span className="text-sm font-bold text-slate-500 uppercase">Total Due</span><span className="text-4xl font-black text-blue-950 leading-none">{currentReportDetail.price}</span></div>
+            <div className="space-y-5 mb-10">
+              <div className="relative"><CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300"/><input type="text" placeholder="CARD NUMBER" className="w-full border border-slate-200 p-4 pl-12 font-mono text-sm outline-none focus:border-blue-600 uppercase transition-all"/></div>
+              <div className="grid grid-cols-2 gap-5"><input type="text" placeholder="MM/YY" className="border border-slate-200 p-4 text-sm font-mono outline-none focus:border-blue-600 transition-all"/><input type="text" placeholder="CVC" className="border border-slate-200 p-4 text-sm font-mono outline-none focus:border-blue-600 transition-all"/></div>
+            </div>
+            <button onClick={processPayment} disabled={isProcessingPayment} className="w-full bg-blue-950 text-white py-5 font-bold uppercase tracking-widest text-sm hover:bg-blue-900 transition-colors disabled:bg-slate-300 flex items-center justify-center gap-3">{isProcessingPayment ? <><span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span> PROCESSING...</> : `EXECUTE PAYMENT`}</button>
+            <div className="mt-6 flex justify-center items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]"><Lock className="w-3 h-3"/> SSL 256-BIT ENCRYPTION</div>
+          </div>
+        </div>
+      )}
+
+      {/* STICKY BOTTOM BAR (Report Detail) */}
+      {currentPage === 'ReportDetail' && showStickyBar && currentReportDetail && (
+        <div className="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-5 z-[80] shadow-[0_-10px_30px_rgba(0,0,0,0.08)] animate-in slide-in-from-bottom-full duration-500">
+          <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
+            <div className="hidden md:block max-w-2xl"><p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Currently Viewing</p><h4 className="font-extrabold text-blue-950 truncate">{currentReportDetail.title}</h4></div>
+            <div className="flex items-center gap-8 w-full md:w-auto"><span className="text-3xl font-black text-blue-950 tracking-tighter">{currentReportDetail.price}</span><button onClick={handlePurchase} className="bg-blue-950 text-white px-10 py-3.5 font-bold uppercase text-xs tracking-widest hover:bg-blue-900 transition-colors shadow-lg">Purchase Now</button></div>
+          </div>
+        </div>
+      )}
+
+      {/* GLOBAL FOOTER */}
+      {currentPage !== 'Portal' && currentPage !== 'Login' && currentPage !== 'Onboarding' && (
+        <footer className="py-16 bg-white border-t border-slate-100 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
+            <div><div className="flex items-center gap-2 mb-4"><div className="w-5 h-5 bg-blue-950"></div><span className="text-base font-bold text-blue-950 tracking-tighter uppercase">VN-SIR. <span className="text-slate-400">2026</span></span></div><p className="text-[11px] text-slate-400 max-w-xs uppercase font-bold tracking-widest leading-loose">Centre Point Building, 106 Nguyen Van Troi St., <br/>Phu Nhuan District, Ho Chi Minh City, Vietnam.</p></div>
+            <div className="flex flex-wrap gap-10 text-xs font-bold text-slate-500 uppercase tracking-[0.2em]">
+              <button onClick={() => navigateTo('Legal')} className="hover:text-blue-950 transition-colors">Terms of Service</button>
+              <button onClick={() => navigateTo('Legal')} className="hover:text-blue-950 transition-colors">Privacy Policy</button>
+              <button className="hover:text-blue-950 transition-colors">Corporate Contact</button>
+            </div>
+          </div>
+        </footer>
+      )}
+
+      {/* COOKIE CONSENT BANNER (GDPR Compliance) */}
+      {showCookieConsent && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] max-w-4xl bg-blue-950 text-white p-6 md:p-8 z-[100] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-blue-800 animate-in slide-in-from-bottom-12 duration-700 flex flex-col md:flex-row items-center justify-between gap-6">
+           <div className="flex-1">
+             <div className="flex items-center gap-2 mb-2"><Shield className="w-4 h-4 text-blue-400" /><span className="text-xs font-bold uppercase tracking-widest text-blue-400">GDPR Compliance Protocol</span></div>
+             <p className="text-sm text-slate-300 leading-relaxed font-medium">We use cookies to ensure global regulatory compliance, verify identity (<strong className="text-white font-bold">Whitelist Authentication</strong>), and deliver <strong className="text-white font-bold">Personalized Intelligence</strong>. By continuing, you agree to our strict Data Collection protocols.</p>
+           </div>
+           <button onClick={() => setShowCookieConsent(false)} className="w-full md:w-auto bg-white text-blue-950 px-8 py-3.5 text-xs font-bold uppercase tracking-widest hover:bg-slate-200 transition-colors shrink-0 shadow-lg">Acknowledge & Proceed</button>
+        </div>
+      )}
+
+    </div>
+  );
+};
+
+export default App;

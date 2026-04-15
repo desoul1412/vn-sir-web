@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNSIR - CRM Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for high data density tables */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="flex h-screen bg-gray-50 text-slate-800 font-sans antialiased">
+
+    <!-- Left Sidebar -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-10">
+        <div class="h-16 flex items-center px-6 border-b border-slate-700">
+            <span class="text-white font-bold tracking-wider text-xl uppercase">VNSIR CRM</span>
+        </div>
+        <nav class="flex-1 py-4 text-sm font-medium">
+            <a href="#" class="flex items-center px-6 py-3 bg-blue-900 text-white border-l-4 border-blue-500 hover:bg-slate-800 transition-colors">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                CRM Overview
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors border-l-4 border-transparent">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15.21 12a3 3 0 11-6.42 0m6.42 0a3 3 0 00-6.42 0m6.42 0H15m-3 0v4m0-4H9"></path></svg>
+                Audience & Users
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors border-l-4 border-transparent">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Monetization Data
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors border-l-4 border-transparent">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                Search Queries Logs
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition-colors border-l-4 border-transparent mt-auto">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                System Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        
+        <!-- Top Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-0">
+            <h1 class="text-lg font-bold text-slate-800">System Dashboard</h1>
+            <div class="text-sm text-slate-500 font-medium">
+                Last updated: <span class="text-slate-800">Just now</span>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+            
+            <!-- Metric Cards Row -->
+            <div class="grid grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white border border-gray-200 rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Total Users</p>
+                    <p class="text-2xl font-bold text-slate-900">1,248,092</p>
+                    <p class="text-xs text-green-600 mt-2 font-medium">↑ 3.2% vs last 30 days</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white border border-gray-200 rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">ARPU (USD)</p>
+                    <p class="text-2xl font-bold text-blue-900">$18.45</p>
+                    <p class="text-xs text-green-600 mt-2 font-medium">↑ 1.1% vs last 30 days</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white border border-gray-200 rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">LTV (USD)</p>
+                    <p class="text-2xl font-bold text-blue-900">$215.30</p>
+                    <p class="text-xs text-gray-500 mt-2 font-medium">- 0.0% vs last 30 days</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white border border-gray-200 rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Active Leads</p>
+                    <p class="text-2xl font-bold text-slate-900">4,812</p>
+                    <p class="text-xs text-red-600 mt-2 font-medium">↓ 2.4% vs last 30 days</p>
+                </div>
+            </div>
+
+            <!-- Split Screen Layout -->
+            <div class="grid grid-cols-2 gap-8 h-full">
+                
+                <!-- Left Side: High-Intent Leads -->
+                <div class="bg-white border border-gray-200 rounded shadow-sm flex flex-col">
+                    <div class="px-5 py-4 border-b border-gray-200 bg-slate-50 flex justify-between items-center">
+                        <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">High-Intent Leads</h2>
+                        <button class="text-xs bg-white border border-gray-300 text-slate-600 px-2 py-1 rounded hover:bg-gray-50">Export CSV</button>
+                    </div>
+                    <div class="flex-1 overflow-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="sticky top-0 bg-slate-100 text-slate-600 font-semibold text-xs uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-5 py-3 border-b border-gray-200">Corporate Email</th>
+                                    <th class="px-5 py-3 border-b border-gray-200">Job Title</th>
+                                    <th class="px-5 py-3 border-b border-gray-200 text-right">Engagement Score</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <!-- Dummy Data Row -->
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">m.zhang@tencent.com</td>
+                                    <td class="px-5 py-3">Global Publishing Dir.</td>
+                                    <td class="px-5 py-3 text-right font-bold text-emerald-600">98</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">j.smith@ea.com</td>
+                                    <td class="px-5 py-3">VP Data Analytics</td>
+                                    <td class="px-5 py-3 text-right font-bold text-emerald-600">95</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">k.lee@nexon.co.kr</td>
+                                    <td class="px-5 py-3">Head of User Acquisition</td>
+                                    <td class="px-5 py-3 text-right font-bold text-emerald-600">92</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">a.johnson@ubisoft.com</td>
+                                    <td class="px-5 py-3">Sr. Data Scientist</td>
+                                    <td class="px-5 py-3 text-right font-bold text-emerald-600">89</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">r.chen@mihoyo.com</td>
+                                    <td class="px-5 py-3">Lead Market Researcher</td>
+                                    <td class="px-5 py-3 text-right font-bold text-yellow-600">84</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">t.wilson@take2.com</td>
+                                    <td class="px-5 py-3">Monetization Manager</td>
+                                    <td class="px-5 py-3 text-right font-bold text-yellow-600">81</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">d.patel@scopely.com</td>
+                                    <td class="px-5 py-3">Director of CRM</td>
+                                    <td class="px-5 py-3 text-right font-bold text-yellow-600">79</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-medium text-blue-800">e.davis@zynga.com</td>
+                                    <td class="px-5 py-3">Product Manager</td>
+                                    <td class="px-5 py-3 text-right font-bold text-orange-500">75</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right Side: Zero-Result Search Logs -->
+                <div class="bg-white border border-gray-200 rounded shadow-sm flex flex-col">
+                    <div class="px-5 py-4 border-b border-gray-200 bg-slate-50 flex justify-between items-center">
+                        <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">Zero-Result Search Logs</h2>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded">Needs Action</span>
+                    </div>
+                    <div class="flex-1 overflow-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="sticky top-0 bg-slate-100 text-slate-600 font-semibold text-xs uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-5 py-3 border-b border-gray-200">Keywords (Exact Match)</th>
+                                    <th class="px-5 py-3 border-b border-gray-200 text-right">Search Count</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700">
+                                <!-- Dummy Data Row -->
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"AI player behavior prediction"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">1,245</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"predictive LTV models 2026"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">892</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"auto churn rate reduction API"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">756</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"whale segmentation machine learning"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">610</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"real-time ARPU adjustment"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">544</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"global publishing ROI tools"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">412</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"automated sentiment analysis CS"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">389</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-gray-100">
+                                    <td class="px-5 py-3 font-mono text-xs text-slate-600">"cross-border payment friction"</td>
+                                    <td class="px-5 py-3 text-right font-bold text-slate-900">275</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>
