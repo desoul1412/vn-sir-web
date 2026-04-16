@@ -14,8 +14,20 @@ status: active
 - Git
 - Build Tools
 - CSS/Tailwind
+- Database
+- DevOps
+- Payments
 
 ## Short-Term Memory
+- All files are valid. Here's a complete summary of everything done for **Task 0.4**:
+
+---
+
+## ✅ Task 0.4 — VNSIR Vercel Deployment: Complete
+
+### What Was Configured
+
+#### 1. `vercel.json` — Hardened S
 - Task 0.3 is complete. Here's the full status report:
 
 ---
@@ -38,11 +50,27 @@ status: active
 
 ## Long-Term Knowledge
 - Frequently works with: status
+- Frequently works with: here's
+- Frequently works with: complete
+- Frequently works with: vnsir
 
 ## Rules
 - Inherits global rules
 
 ## Completed Tasks
+### 2026-04-16 — **Task 0.4**  — Configure Vercel deployment: create `vercel.json` with SPA rewrite rules (`"rewrites": [{"source": "/(.*)", "destination": "/index.html"}]`). Set up preview deployments on PRs.
+All files are valid. Here's a complete summary of everything done for **Task 0.4**:
+
+---
+
+## ✅ Task 0.4 — VNSIR Vercel Deployment: Complete
+
+### What Was Configured
+
+#### 1. `vercel.json` — Hardened SPA Config
+The root `vercel.json` already had correct SPA rewrites. Enhanced with:
+- **`installComman
+
 ### 2026-04-16 — **Task 0.3**  — Install and configure Tailwind CSS v4 with `@tailwindcss/vite` plugin. Create `src/index.css` with `@import "tailwindcss"` (CSS-first config, no `tailwind.config.js`). Define VNSIR design tokens as CSS custom properties:
 Task 0.3 is complete. Here's the full status report:
 
