@@ -22,6 +22,15 @@ status: active
 - Authentication
 
 ## Short-Term Memory
+- ✅ **Task 1.1 — Complete.** Here's the full delivery summary:
+
+---
+
+## Task 1.1 — Auth Providers + `handle_new_user` Trigger
+
+### What was built
+
+#### 🗄️ Migration: `supabase/migrations/20260416130000
 - All done. Here's the complete status report for **Task 0.11**:
 
 ---
@@ -95,6 +104,22 @@ All app shell components were **already fully implemented** in p
 - Inherits global rules
 
 ## Completed Tasks
+### 2026-04-16 — **Task 1.1** (Role: BE) — Configure Supabase Auth providers: Google OAuth SSO, Magic Link (passwordless email). Create `handle_new_user` database trigger function that auto-inserts a row into `profiles` on `auth.users` INSERT with `access_tier = 'tier_0'`.
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/agent, agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+✅ **Task 1.1 — Complete.** Here's the full delivery summary:
+
+---
+
+## Task 1.1 — Auth Providers + `handle_new_user` Trigger
+
+### What was built
+
+#### 🗄️ Migration: `supabase/migrations/20260416130000_vnsir_auth_trigger.sql`
+
+**Part A — `public.vnsir_handle_new_user()` trigger**
+- `SECURITY DEFINER`
+
 ### 2026-04-16 — **Task 0.11**  — Create base app shell: React Router v7 setup with lazy-loaded route structure:
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
