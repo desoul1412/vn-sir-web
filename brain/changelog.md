@@ -8,6 +8,26 @@ status: active
 
 ## 2026-04-16
 
+### Task 1.3 — Onboarding.tsx (Sprint 1, Phase 1) ✅
+**Agent**: Visual Designer / UI
+**Spec**: §2.5.3 §3.2 — [[Onboarding-Spec]]
+
+**Created**:
+- `src/lib/supabase.ts` — Supabase client singleton with `Profile` type and `SectorEnum`
+- `src/hooks/useAuth.ts` — `useAuth()` hook wrapping `onAuthStateChange`, exposes `user`, `profile`, `isLoading`, `isAdmin`, `signInWithGoogle`, `signInWithMagicLink`, `signOut`, `refreshProfile`
+- `src/pages/Onboarding.tsx` — Single-screen modal collecting Job Title + Industry Focus; saves via `supabase.from('profiles').update()`; redirects to Intelligence Hub on success
+- `brain/vnsir/wiki/Onboarding-Spec.md` — Full spec, design decisions, WCAG audit, interaction states
+
+**Design decisions**:
+- Sharp-edged panel (radius-none), white on gray-light backdrop — per VNSIR Stoic aesthetic
+- Playfair Display serif H1 at `--text-2xl` (31px) for premium authority
+- Escape key disabled — onboarding is mandatory, cannot be dismissed
+- 800ms redirect delay post-success for SR announcement window
+- All WCAG AA/AAA targets met; gray-muted used only for decorative non-informational text
+
+**TypeScript**: `npx tsc --noEmit` → 0 errors
+
+
 ### Task 0.6 — Foundational SQL Migration `001_foundation.sql` ✅
 **Agent:** Analytics Engineer  
 **Branch:** `agent/agent` (commit `b178b9d`)
