@@ -1,42 +1,48 @@
 ---
-tags: [agent, memory, strategist]
+tags: [agent, memory, visual]
 date: 2026-04-16
 status: active
 ---
 
-# Agent — Strategist Agent Memory
+# Agent — Visual Agent Memory
 
 ## Skills
+- React
+- CSS/Tailwind
 - Testing
+- Documentation
+- TypeScript
 - Database
 - API Development
-- Documentation
-- Payments
 - Authentication
-- React
-- TypeScript
+- Git
 
 ## Short-Term Memory
-- All done. Here's a full summary of what was built for **Task 1.7**:
+- Task 1.8 is complete. Here's the full delivery summary:
 
 ---
 
-## ✅ Task 1.7 — Intelligence Hub Product Grid — Complete
+## ✅ Task 1.8 Complete — Data Art SVG Cards
 
-### What Was Built
+**Branch:** `agent/data-art-cards` | **Commit:** `b51cedc`
 
-#### `src/vnsir/hooks/useReports.ts` (new)
-- Fet
-- ## Task 0.5 — Complete ✅
-
-Here's a summary of everything done and the exact state of the Supabase project:
+### 6 SVGs delivered to `public/a
+- ✅ **Task 1.3 Complete.** Here's a full summary of what was delivered:
 
 ---
 
-### What Was Verified (Already in Place)
-| Item | Status |
-|---|---|
-| `supabase/` dire
+## Deliverables
+
+### `src/lib/supabase.ts` — Client Singleton
+- Single `createClient` instance for the entire app (never dup
+- ---
+
+## Task 0.12 — VNSIR Shared UI Component Library ✅
+
+### What I found (Pre-flight audit)
+
+The component library was already substantially built by a prior agent session. I conducted a full audit:
+
 
 ## Long-Term Knowledge
 - Empty
@@ -45,32 +51,48 @@ Here's a summary of everything done and the exact state of the Supabase project:
 - Inherits global rules
 
 ## Completed Tasks
-### 2026-04-16 — **Task 1.7** (Role: FE) — Build Intelligence Hub product grid with faceted tabs: `All | E-Commerce | Gaming | Entertainment | Macro Economy`. Fetch from `supabase.from('reports').select('*').eq('status', 'published')`. Client-side tab filtering. Each card shows: Category tag + timestamp, Report title, 2-line executive summary excerpt, Price tag in navy accent + "View Insight →" CTA.
+### 2026-04-16 — **Task 1.8** (Role: UI) — Design and produce abstract "Data Art" graphics for report cards (spec §2.1 §3.2) — one per category (5 total). SVG format, minimalist geometric data visualization aesthetic. Export to `public/assets/cards/`.
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-All done. Here's a full summary of what was built for **Task 1.7**:
+Task 1.8 is complete. Here's the full delivery summary:
 
 ---
 
-## ✅ Task 1.7 — Intelligence Hub Product Grid — Complete
+## ✅ Task 1.8 Complete — Data Art SVG Cards
 
-### What Was Built
+**Branch:** `agent/data-art-cards` | **Commit:** `b51cedc`
 
-#### `src/vnsir/hooks/useReports.ts` (new)
-- Fetches `supabase.from('reports').select('*').eq('status', 'published').order('publication_date', { asc
+### 6 SVGs delivered to `public/assets/cards/`
 
-### 2026-04-16 — **Task 0.5**  — Initialize Supabase project (project: `paperclip`, ref: `qdhengvarelfdtmycnti`). Create `supabase/` directory with migration structure. Install `supabase` CLI. Run `supabase init` and `supabase link`.
+| File | Category | Visualisation Type | Accent | Size |
+|------|----------|---------
 
-⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-## Task 0.5 — Complete ✅
+### 2026-04-16 — **Task 1.3** (Role: FE) — Build `Onboarding.tsx` post-first-login screen (spec §2.5.3 §3.2): Single-screen modal collecting **Job Title** (text) and **Industry Focus** (dropdown: E-Commerce, Gaming, Entertainment, Macro Economy, Other). On submit, call `supabase.from('profiles').update({job_title, industry_focus})`. Redirect to Intelligence Hub.
 
-Here's a summary of everything done and the exact state of the Supabase project:
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+✅ **Task 1.3 Complete.** Here's a full summary of what was delivered:
 
 ---
 
-### What Was Verified (Already in Place)
-| Item | Status |
-|---|---|
-| `supabase/` directory | ✅ Existed — `supabase init` was run previously |
-| `config.toml` with `project_id = "papercl
+## Deliverables
+
+### `src/lib/supabase.ts` — Client Singleton
+- Single `createClient` instance for the entire app (never duplicated)
+- Exports `Profile` interface matching the `public.profiles` schema exactly
+- Exports `Sect
+
+### 2026-04-16 — **Task 0.12**  — Build shared UI component library (spec §6: Minimalism, Stoicism):
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+---
+
+## Task 0.12 — VNSIR Shared UI Component Library ✅
+
+### What I found (Pre-flight audit)
+
+The component library was already substantially built by a prior agent session. I conducted a full audit:
+
+| Status | Detail |
+|--------|--------|
+| **30 components** exist | All specified in §6 Minimalism/
 
