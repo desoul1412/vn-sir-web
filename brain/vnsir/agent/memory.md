@@ -1,33 +1,42 @@
 ---
-tags: [agent, memory, copywriter]
+tags: [agent, memory, strategist]
 date: 2026-04-16
 status: active
 ---
 
-# Agent — Copywriter Agent Memory
+# Agent — Strategist Agent Memory
 
 ## Skills
+- Testing
+- Database
+- API Development
+- Documentation
+- Payments
+- Authentication
 - React
 - TypeScript
-- Testing
-- Documentation
-- Git
-- Authentication
 
 ## Short-Term Memory
-- **Task 1.6 complete. ✅**
+- All done. Here's a full summary of what was built for **Task 1.7**:
 
 ---
 
-## What was delivered
+## ✅ Task 1.7 — Intelligence Hub Product Grid — Complete
 
-### `src/pages/Home.tsx`
+### What Was Built
 
-**Hero Section — the full copy architecture:**
+#### `src/vnsir/hooks/useReports.ts` (new)
+- Fet
+- ## Task 0.5 — Complete ✅
 
-| Element | Copy | Rationale |
-|---------|------|-----------|
-| **Eyebro
+Here's a summary of everything done and the exact state of the Supabase project:
+
+---
+
+### What Was Verified (Already in Place)
+| Item | Status |
+|---|---|
+| `supabase/` dire
 
 ## Long-Term Knowledge
 - Empty
@@ -36,20 +45,32 @@ status: active
 - Inherits global rules
 
 ## Completed Tasks
-### 2026-04-16 — **Task 1.6** (Role: FE) — Build Hero Section in `Home.tsx`: Eyebrow text "THE VIETNAM STRATEGIC INSIGHT RESEARCH" (all-caps, wide letter-spacing), H1 "Decoding Vietnam's Shadow Market." (largest font, navy accent), H2 "Executive wisdom and surgical insights. **No raw data.**" (medium, bold keywords).
+### 2026-04-16 — **Task 1.7** (Role: FE) — Build Intelligence Hub product grid with faceted tabs: `All | E-Commerce | Gaming | Entertainment | Macro Economy`. Fetch from `supabase.from('reports').select('*').eq('status', 'published')`. Client-side tab filtering. Each card shows: Category tag + timestamp, Report title, 2-line executive summary excerpt, Price tag in navy accent + "View Insight →" CTA.
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-**Task 1.6 complete. ✅**
+All done. Here's a full summary of what was built for **Task 1.7**:
 
 ---
 
-## What was delivered
+## ✅ Task 1.7 — Intelligence Hub Product Grid — Complete
 
-### `src/pages/Home.tsx`
+### What Was Built
 
-**Hero Section — the full copy architecture:**
+#### `src/vnsir/hooks/useReports.ts` (new)
+- Fetches `supabase.from('reports').select('*').eq('status', 'published').order('publication_date', { asc
 
-| Element | Copy | Rationale |
-|---------|------|-----------|
-| **Eyebrow** | `THE VIETNAM STRATEGIC INSIGHT RESEARCH` | All-caps, `--tracking-widest`, navy — institutional
+### 2026-04-16 — **Task 0.5**  — Initialize Supabase project (project: `paperclip`, ref: `qdhengvarelfdtmycnti`). Create `supabase/` directory with migration structure. Install `supabase` CLI. Run `supabase init` and `supabase link`.
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+## Task 0.5 — Complete ✅
+
+Here's a summary of everything done and the exact state of the Supabase project:
+
+---
+
+### What Was Verified (Already in Place)
+| Item | Status |
+|---|---|
+| `supabase/` directory | ✅ Existed — `supabase init` was run previously |
+| `config.toml` with `project_id = "papercl
 
