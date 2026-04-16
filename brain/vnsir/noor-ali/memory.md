@@ -22,6 +22,16 @@ status: active
 - Authentication
 
 ## Short-Term Memory
+- All done. Here's a complete summary of what was delivered:
+
+---
+
+## ✅ Task 1.9 — Trust Badges Footer Strip: Complete
+
+### What Was Built
+
+#### `TrustBadgesFooter.tsx`
+A full-width footer component mou
 - ✅ **Task 1.1 — Complete.** Here's the full delivery summary:
 
 ---
@@ -104,6 +114,20 @@ All app shell components were **already fully implemented** in p
 - Inherits global rules
 
 ## Completed Tasks
+### 2026-04-16 — **Task 1.9** (Role: FE) — Build Trust Badges footer strip: Grayscale partner logos, legal links (Terms of Service, Privacy Policy), "Ho Chi Minh City, Vietnam" location text.
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/agent, agent/agent, agent/agent, agent/agent, agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+All done. Here's a complete summary of what was delivered:
+
+---
+
+## ✅ Task 1.9 — Trust Badges Footer Strip: Complete
+
+### What Was Built
+
+#### `TrustBadgesFooter.tsx`
+A full-width footer component mounted at the bottom of every VNSIR page via `VnsirLayout`. Built with the same inline-style approach 
+
 ### 2026-04-16 — **Task 1.1** (Role: BE) — Configure Supabase Auth providers: Google OAuth SSO, Magic Link (passwordless email). Create `handle_new_user` database trigger function that auto-inserts a row into `profiles` on `auth.users` INSERT with `access_tier = 'tier_0'`.
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/agent, agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
