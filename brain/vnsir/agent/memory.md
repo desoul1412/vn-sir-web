@@ -1,48 +1,33 @@
 ---
-tags: [agent, memory, analytics eng]
+tags: [agent, memory, copywriter]
 date: 2026-04-16
 status: active
 ---
 
-# Agent — Analytics Eng Agent Memory
+# Agent — Copywriter Agent Memory
 
 ## Skills
+- React
+- TypeScript
 - Testing
-- Database
 - Documentation
 - Git
-- Payments
 - Authentication
-- React
-- Build Tools
 
 ## Short-Term Memory
-- ---
-
-## ✅ Task 1.5 — Auth Integration Tests: Complete
-
-**86 tests, 86 passed, 0 failed.**
+- **Task 1.6 complete. ✅**
 
 ---
 
-### Delivery Summary
+## What was delivered
 
-#### Files Created
+### `src/pages/Home.tsx`
 
-| File | Tests | Purpose |
-|---|---|---|
-| `src/vnsir/pages/au
-- **Task 0.6 complete. Here's the full delivery summary:**
+**Hero Section — the full copy architecture:**
 
----
-
-## ✅ Task 0.6 — `001_foundation.sql` Complete
-
-### Files Delivered
-
-| File | Lines | Purpose |
-|---|---|---|
-| `supabase/migrations/20260
+| Element | Copy | Rationale |
+|---------|------|-----------|
+| **Eyebro
 
 ## Long-Term Knowledge
 - Empty
@@ -51,39 +36,20 @@ status: active
 - Inherits global rules
 
 ## Completed Tasks
-### 2026-04-16 — **Task 1.5** (Role: QA) — Write auth integration tests: Google SSO redirect flow, Magic Link email delivery mock, freemail rejection regex, onboarding completion persists to `profiles` table, unauthenticated redirect to `/login`.
+### 2026-04-16 — **Task 1.6** (Role: FE) — Build Hero Section in `Home.tsx`: Eyebrow text "THE VIETNAM STRATEGIC INSIGHT RESEARCH" (all-caps, wide letter-spacing), H1 "Decoding Vietnam's Shadow Market." (largest font, navy accent), H2 "Executive wisdom and surgical insights. **No raw data.**" (medium, bold keywords).
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
----
-
-## ✅ Task 1.5 — Auth Integration Tests: Complete
-
-**86 tests, 86 passed, 0 failed.**
+**Task 1.6 complete. ✅**
 
 ---
 
-### Delivery Summary
+## What was delivered
 
-#### Files Created
+### `src/pages/Home.tsx`
 
-| File | Tests | Purpose |
-|---|---|---|
-| `src/vnsir/pages/auth/OnboardingPage.tsx` | — | Full implementation (form + `supabase.profiles.update`) |
-| `src/vnsir/
+**Hero Section — the full copy architecture:**
 
-### 2026-04-16 — **Task 0.6**  — Write foundational SQL migration `001_foundation.sql`:
-
-⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-**Task 0.6 complete. Here's the full delivery summary:**
-
----
-
-## ✅ Task 0.6 — `001_foundation.sql` Complete
-
-### Files Delivered
-
-| File | Lines | Purpose |
-|---|---|---|
-| `supabase/migrations/20260416000001_foundation.sql` | 570 | Core schema migration |
-| `supabase/config.toml` | 18 | Local Supa
+| Element | Copy | Rationale |
+|---------|------|-----------|
+| **Eyebrow** | `THE VIETNAM STRATEGIC INSIGHT RESEARCH` | All-caps, `--tracking-widest`, navy — institutional
 

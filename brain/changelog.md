@@ -8,6 +8,34 @@ status: active
 
 ## 2026-04-16
 
+### Task 1.6 — Home.tsx Hero Section (Sprint 1, Phase 1) ✅
+**Agent**: Senior Conversion Copywriter
+**Spec**: §2.1 · [[Home-Hero-Spec]]
+
+**Created**:
+- `src/pages/Home.tsx` — Full home page shell with Hero Section (Task 1.6), stub for Product Grid (Task 1.7), stub for Trust Strip (Task 1.9)
+- `brain/vnsir/wiki/Home-Hero-Spec.md` — Copy architecture, A/B test variants, layout spec, accessibility audit, design decisions
+
+**Hero copy delivered**:
+- Eyebrow: "THE VIETNAM STRATEGIC INSIGHT RESEARCH" — navy, `--tracking-widest`, `--font-sans` 600
+- H1: "Decoding Vietnam's Shadow Market." — navy accent, `clamp(2.4rem, 5vw, --text-5xl)`, weight 800
+- H2: "**Executive wisdom** and **surgical insights.** **No raw data.**" — objection-killer, `--text-xl`, charcoal
+- Primary CTA: "Explore Intelligence Hub →" — `.btn-cta`, scrolls to `#intelligence-hub`
+- Ghost CTA: "Request Custom Research" — `.btn-ghost`, links to `/advisory`
+- Trust micro-copy: "Trusted by analysts and executives across Vietnam's digital economy."
+
+**Design decisions**:
+- H1 in `--color-vnsir-navy` (not black) per spec §2.1 "navy accent" — creates strongest visual hierarchy against white background (11.8:1 contrast ✓ AAA)
+- Two-column layout (55/45) on ≥1024px, stacked on mobile
+- Data art panel: inline SVG placeholder (abstract bar chart + trend line on dark gradient) — replaces `public/assets/cards/hero-art.svg` when UI agent delivers (Task 1.8)
+- Art panel hidden on xs breakpoint — copy dominates mobile
+- Glow pulse animation: `prefers-reduced-motion` safe, desktop-only
+- Eyebrow is `aria-hidden="true"` — H1 is the sole primary label for SR
+- `SiteHeader` included in Home.tsx scope (nav + login CTA wire-up)
+
+**TypeScript**: `tsc --noEmit` → 0 errors ✅
+**Conflicts**: No files edited that overlap with open MRs on agent/dev-sharma, agent/noor-ali, agent/fatima-hassan, agent/oscar-wu, agent/yuki-nakamura, agent/zara-osei.
+
 ### Task 1.3 — Onboarding.tsx (Sprint 1, Phase 1) ✅
 **Agent**: Visual Designer / UI
 **Spec**: §2.5.3 §3.2 — [[Onboarding-Spec]]
