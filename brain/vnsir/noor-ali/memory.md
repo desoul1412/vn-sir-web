@@ -17,8 +17,21 @@ status: active
 - Database
 - DevOps
 - Payments
+- SQLite
+- Desktop
 
 ## Short-Term Memory
+- Everything is verified and in order. Here's a complete summary of Task 0.8:
+
+---
+
+## ✅ Task 0.8 — VNSIR CI/CD Pipeline: Complete
+
+### What Was Delivered
+
+#### 1. `ci.yml` — Updated Quality Gate
+
+**Add
 - All files are valid. Here's a complete summary of everything done for **Task 0.4**:
 
 ---
@@ -53,11 +66,29 @@ status: active
 - Frequently works with: here's
 - Frequently works with: complete
 - Frequently works with: vnsir
+- Frequently works with: summary
 
 ## Rules
 - Inherits global rules
 
 ## Completed Tasks
+### 2026-04-16 — **Task 0.8**  — Set up CI/CD pipeline in GitHub Actions:
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+Everything is verified and in order. Here's a complete summary of Task 0.8:
+
+---
+
+## ✅ Task 0.8 — VNSIR CI/CD Pipeline: Complete
+
+### What Was Delivered
+
+#### 1. `ci.yml` — Updated Quality Gate
+
+**Added: VNSIR build step** to the existing `build` job:
+```
+npm run build        → dist-factory  (7-day 
+
 ### 2026-04-16 — **Task 0.4**  — Configure Vercel deployment: create `vercel.json` with SPA rewrite rules (`"rewrites": [{"source": "/(.*)", "destination": "/index.html"}]`). Set up preview deployments on PRs.
 All files are valid. Here's a complete summary of everything done for **Task 0.4**:
 
