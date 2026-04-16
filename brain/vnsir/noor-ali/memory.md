@@ -19,8 +19,20 @@ status: active
 - Payments
 - SQLite
 - Desktop
+- Authentication
 
 ## Short-Term Memory
+- All done. Here's the full summary:
+
+---
+
+## ✅ Task 0.10 — VNSIR Core Dependencies: Complete
+
+### What Was Installed
+
+| Package | Version | Purpose |
+|---|---|---|
+| `react-hook-form` | `^7.72.1` | All
 - Everything is verified and in order. Here's a complete summary of Task 0.8:
 
 ---
@@ -72,6 +84,22 @@ status: active
 - Inherits global rules
 
 ## Completed Tasks
+### 2026-04-16 — **Task 0.10**  — Install core dependencies:
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+All done. Here's the full summary:
+
+---
+
+## ✅ Task 0.10 — VNSIR Core Dependencies: Complete
+
+### What Was Installed
+
+| Package | Version | Purpose |
+|---|---|---|
+| `react-hook-form` | `^7.72.1` | All VNSIR forms — advisory request, auth (email OTP + LinkedIn), profile |
+| `@hookform/resolvers` | `^
+
 ### 2026-04-16 — **Task 0.8**  — Set up CI/CD pipeline in GitHub Actions:
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/agent, agent/agent, agent/agent. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
