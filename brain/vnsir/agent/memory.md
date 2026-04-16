@@ -1,38 +1,40 @@
 ---
-tags: [agent, memory, visual]
+tags: [agent, memory, tech seo]
 date: 2026-04-16
 status: active
 ---
 
-# Agent — Visual Agent Memory
+# Agent — Tech SEO Agent Memory
 
 ## Skills
-- React
-- CSS/Tailwind
-- Testing
-- Documentation
-- TypeScript
 - Database
 - API Development
+- Payments
 - Authentication
+- React
+- TypeScript
 
 ## Short-Term Memory
-- ✅ **Task 1.3 Complete.** Here's a full summary of what was delivered:
+- **Task 1.4 — ✅ Complete.** Here's the full delivery summary:
 
 ---
 
-## Deliverables
+## Task 1.4 — Auth Hook + Context + Route Guard HOC
 
-### `src/lib/supabase.ts` — Client Singleton
-- Single `createClient` instance for the entire app (never dup
-- ---
+### Files Shipped
 
-## Task 0.12 — VNSIR Shared UI Component Library ✅
+| File | Role |
+|------|------|
+| `src/hooks/useAuth.ts` | **
+- **Task 0.7 complete.** Here's a full summary of what was built:
 
-### What I found (Pre-flight audit)
+---
 
-The component library was already substantially built by a prior agent session. I conducted a full audit:
+## ✅ `002_rls_policies.sql` — Delivered
 
+**File:** `supabase/migrations/20260416000002_rls_policies.sql`
+
+### Architecture Overvie
 
 ## Long-Term Knowledge
 - Empty
@@ -41,33 +43,38 @@ The component library was already substantially built by a prior agent session. 
 - Inherits global rules
 
 ## Completed Tasks
-### 2026-04-16 — **Task 1.3** (Role: FE) — Build `Onboarding.tsx` post-first-login screen (spec §2.5.3 §3.2): Single-screen modal collecting **Job Title** (text) and **Industry Focus** (dropdown: E-Commerce, Gaming, Entertainment, Macro Economy, Other). On submit, call `supabase.from('profiles').update({job_title, industry_focus})`. Redirect to Intelligence Hub.
+### 2026-04-16 — **Task 1.4** (Role: FE) — Build `useAuth` hook: wraps `supabase.auth.onAuthStateChange`, exposes `user`, `profile`, `isLoading`, `signIn`, `signOut`, `isAdmin` (checks profile metadata). Implement auth guard HOC `<RequireAuth>` that redirects unauthenticated users to Login.
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-✅ **Task 1.3 Complete.** Here's a full summary of what was delivered:
+**Task 1.4 — ✅ Complete.** Here's the full delivery summary:
 
 ---
 
-## Deliverables
+## Task 1.4 — Auth Hook + Context + Route Guard HOC
 
-### `src/lib/supabase.ts` — Client Singleton
-- Single `createClient` instance for the entire app (never duplicated)
-- Exports `Profile` interface matching the `public.profiles` schema exactly
-- Exports `Sect
+### Files Shipped
 
-### 2026-04-16 — **Task 0.12**  — Build shared UI component library (spec §6: Minimalism, Stoicism):
+| File | Role |
+|------|------|
+| `src/hooks/useAuth.ts` | **Upgraded** — Added `isOnboarded` flag; improved JSDoc |
+| `src/context/AuthContext.tsx` | **New** — 
 
-⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+### 2026-04-16 — **Task 0.7**  — Write RLS policies migration `002_rls_policies.sql`:
+
+⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
+**Task 0.7 complete.** Here's a full summary of what was built:
+
 ---
 
-## Task 0.12 — VNSIR Shared UI Component Library ✅
+## ✅ `002_rls_policies.sql` — Delivered
 
-### What I found (Pre-flight audit)
+**File:** `supabase/migrations/20260416000002_rls_policies.sql`
 
-The component library was already substantially built by a prior agent session. I conducted a full audit:
+### Architecture Overview
 
-| Status | Detail |
-|--------|--------|
-| **30 components** exist | All specified in §6 Minimalism/
+The migration is organized into 8 lettered sections:
 
-- [2026-04-16] Completed: Task 1.4 (Role: FE) — Build `useAuth` hook (upgraded with `isOnboarded`), `AuthProvider` context, `RequireAuth` + `RequireAdmin` HOCs, `AuthCallback` handler, refactored `App.tsx` with BrowserRouter + route scaffold. tsc: 0 errors. ($0.50 budget)
+| Section | Content |
+|---|---|
+| **A** | R
+
