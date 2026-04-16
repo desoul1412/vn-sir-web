@@ -70,3 +70,4 @@ The component library was already substantially built by a prior agent session. 
 |--------|--------|
 | **30 components** exist | All specified in §6 Minimalism/
 
+- [2026-04-16] Completed: Task 1.4 (Role: FE) — Build `useAuth` hook (upgraded with `isOnboarded`), `AuthProvider` context, `RequireAuth` + `RequireAdmin` HOCs, `AuthCallback` handler, refactored `App.tsx` with BrowserRouter + route scaffold. tsc: 0 errors. ($0.50 budget)

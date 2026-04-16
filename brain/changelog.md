@@ -69,3 +69,37 @@ status: active
 
 ### Task 0.5 — Supabase Project Initialisation ✅
 *(completed by Strategist agent — see memory.md for details)*
+
+---
+
+### Task 1.4 — `useAuth` Hook + `AuthProvider` + `RequireAuth` HOC ✅
+*(completed 2026-04-16 — Senior Technical SEO Engineer / FE Agent)*
+
+**Deliverables:**
+
+| File | Action | Description |
+|------|--------|-------------|
+| `src/hooks/useAuth.ts` | Updated | Added `isOnboarded` flag; improved JSDoc |
+| `src/context/AuthContext.tsx` | Created | `AuthProvider` + `useAuthContext` consuming hook |
+| `src/components/auth/RequireAuth.tsx` | Created | Route guard HOC with 5-state check logic |
+| `src/components/auth/AuthCallback.tsx` | Created | OAuth/Magic Link redirect handler at `/auth/callback` |
+| `src/components/auth/index.ts` | Created | Barrel exports |
+| `src/App.tsx` | Refactored | Wired `BrowserRouter` + `AuthProvider` + full route scaffold |
+
+**Auth flow logic (RequireAuth):**
+1. `isLoading` → `AuthLoadingScreen` (pulse bar, no FOUC)
+2. No `user` → `<Navigate to="/login" state={{ from: location }}>` (preserves deep-link)
+3. `!isOnboarded` (unless `skipOnboardingCheck`) → `<Navigate to="/onboarding">`
+4. `requireAdmin && !isAdmin` → `<Navigate to="/" state={{ error: 'forbidden', code: 403 }}>`
+5. All checks pass → render children ✓
+
+**Routing scaffold:**
+- `/` — Home (Intelligence Hub) — protected
+- `/login` — Login — public
+- `/onboarding` — Onboarding — auth required, onboard check skipped
+- `/auth/callback` — OAuth/Magic Link handler — public
+- `/admin/*` — Admin — protected + requireAdmin
+- `*` — 404 → redirect to `/`
+
+**TypeScript:** `tsc --noEmit` → 0 errors ✅
+**Conflicts:** No shared files edited from other agent branches.
