@@ -1,40 +1,48 @@
 ---
-tags: [agent, memory, tech seo]
+tags: [agent, memory, analytics eng]
 date: 2026-04-16
 status: active
 ---
 
-# Agent — Tech SEO Agent Memory
+# Agent — Analytics Eng Agent Memory
 
 ## Skills
+- Testing
 - Database
-- API Development
+- Documentation
+- Git
 - Payments
 - Authentication
 - React
-- TypeScript
+- Build Tools
 
 ## Short-Term Memory
-- **Task 1.4 — ✅ Complete.** Here's the full delivery summary:
+- ---
+
+## ✅ Task 1.5 — Auth Integration Tests: Complete
+
+**86 tests, 86 passed, 0 failed.**
 
 ---
 
-## Task 1.4 — Auth Hook + Context + Route Guard HOC
+### Delivery Summary
 
-### Files Shipped
+#### Files Created
 
-| File | Role |
-|------|------|
-| `src/hooks/useAuth.ts` | **
-- **Task 0.7 complete.** Here's a full summary of what was built:
+| File | Tests | Purpose |
+|---|---|---|
+| `src/vnsir/pages/au
+- **Task 0.6 complete. Here's the full delivery summary:**
 
 ---
 
-## ✅ `002_rls_policies.sql` — Delivered
+## ✅ Task 0.6 — `001_foundation.sql` Complete
 
-**File:** `supabase/migrations/20260416000002_rls_policies.sql`
+### Files Delivered
 
-### Architecture Overvie
+| File | Lines | Purpose |
+|---|---|---|
+| `supabase/migrations/20260
 
 ## Long-Term Knowledge
 - Empty
@@ -43,38 +51,39 @@ status: active
 - Inherits global rules
 
 ## Completed Tasks
-### 2026-04-16 — **Task 1.4** (Role: FE) — Build `useAuth` hook: wraps `supabase.auth.onAuthStateChange`, exposes `user`, `profile`, `isLoading`, `signIn`, `signOut`, `isAdmin` (checks profile metadata). Implement auth guard HOC `<RequireAuth>` that redirects unauthenticated users to Login.
+### 2026-04-16 — **Task 1.5** (Role: QA) — Write auth integration tests: Google SSO redirect flow, Magic Link email delivery mock, freemail rejection regex, onboarding completion persists to `profiles` table, unauthenticated redirect to `/login`.
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/dev-sharma, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-**Task 1.4 — ✅ Complete.** Here's the full delivery summary:
+---
+
+## ✅ Task 1.5 — Auth Integration Tests: Complete
+
+**86 tests, 86 passed, 0 failed.**
 
 ---
 
-## Task 1.4 — Auth Hook + Context + Route Guard HOC
+### Delivery Summary
 
-### Files Shipped
+#### Files Created
 
-| File | Role |
-|------|------|
-| `src/hooks/useAuth.ts` | **Upgraded** — Added `isOnboarded` flag; improved JSDoc |
-| `src/context/AuthContext.tsx` | **New** — 
+| File | Tests | Purpose |
+|---|---|---|
+| `src/vnsir/pages/auth/OnboardingPage.tsx` | — | Full implementation (form + `supabase.profiles.update`) |
+| `src/vnsir/
 
-### 2026-04-16 — **Task 0.7**  — Write RLS policies migration `002_rls_policies.sql`:
+### 2026-04-16 — **Task 0.6**  — Write foundational SQL migration `001_foundation.sql`:
 
 ⚠ CONFLICT AVOIDANCE: Other agents have open MRs on branches: agent/noor-ali, agent/noor-ali, agent/noor-ali. Avoid editing files they may be working on. If you must edit shared files, coordinate via comments.
-**Task 0.7 complete.** Here's a full summary of what was built:
+**Task 0.6 complete. Here's the full delivery summary:**
 
 ---
 
-## ✅ `002_rls_policies.sql` — Delivered
+## ✅ Task 0.6 — `001_foundation.sql` Complete
 
-**File:** `supabase/migrations/20260416000002_rls_policies.sql`
+### Files Delivered
 
-### Architecture Overview
-
-The migration is organized into 8 lettered sections:
-
-| Section | Content |
-|---|---|
-| **A** | R
+| File | Lines | Purpose |
+|---|---|---|
+| `supabase/migrations/20260416000001_foundation.sql` | 570 | Core schema migration |
+| `supabase/config.toml` | 18 | Local Supa
 
